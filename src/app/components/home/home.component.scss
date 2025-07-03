@@ -1,0 +1,53 @@
+.toggle-group {
+  margin-bottom: 1rem;
+}
+
+.calendario {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: 0.5rem;
+}
+
+.giorno {
+  text-align: center;
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: white;
+}
+
+.weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+.weeks {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.week {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.day {
+  padding: 0.5rem;
+  text-align: center;
+  border-radius: 4px;
+}
+.filter-select {
+  width: 200px;
+  margin: 1rem auto;
+  display: block;
+}
+
+.lavorativo { background-color: #4caf50; }     // verde
+.festivo    { background-color: #f44336; }     // rosso
+.ferie      { background-color: #ffeb3b; color: #000; } // giallo
+.permesso   { background-color: #9c27b0; }     // viola
+.altro      { background-color: #9e9e9e; }     // grigio

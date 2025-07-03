@@ -1,0 +1,30 @@
+<mat-form-field appearance="fill" class="filter-select">
+  <mat-label>Seleziona filtro</mat-label>
+  <mat-select [value]="filtro()" (selectionChange)="cambiaFiltro($event.value)">
+    <mat-option [value]="0">Tutto l’anno</mat-option>
+    <mat-option [value]="1">1 mese</mat-option>
+    <mat-option [value]="2">2 mesi</mat-option>
+    <mat-option [value]="3">3 mesi</mat-option>
+    <mat-option [value]="4">4 mesi</mat-option>
+    <mat-option [value]="6">6 mesi</mat-option>
+    <mat-option [value]="12">12 mesi</mat-option>
+  </mat-select>
+</mat-form-field>
+
+
+<div *ngFor="let cal of calendars()">
+  <h2>{{ cal.monthName.toUpperCase() }}</h2>
+  <div class="weekdays">
+    <div *ngFor="let day of ['Lun','Mar','Mer','Gio','Ven','Sab','Dom']">{{ day }}</div>
+  </div>
+  <div class="weeks">
+    <div class="week" *ngFor="let week of cal.weeks">
+      <div
+        *ngFor="let day of week"
+        class="day"
+        [ngClass]="getTipoGiorno(day)">
+        {{ day | date:'d' }}
+      </div>
+    </div>
+  </div>
+</div>
