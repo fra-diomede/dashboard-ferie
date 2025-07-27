@@ -1,42 +1,45 @@
-<form [formGroup]="ferieForm" (ngSubmit)="submit()" class="p-4 space-y-4">
+<div class="ferie-container">
+  <h2 class="form-title">Inserisci i tuoi giorni di ferie</h2>
 
-  <mat-form-field class="w-full">
-    <mat-label>Nome</mat-label>
-    <input matInput formControlName="Nome" required>
-  </mat-form-field>
+  <form [formGroup]="ferieForm" (ngSubmit)="submit()" class="ferie-form">
+    <mat-form-field class="w-full">
+      <mat-label>Nome</mat-label>
+      <input matInput formControlName="Nome" required>
+    </mat-form-field>
 
-  <mat-form-field class="w-full">
-    <mat-label>Cognome</mat-label>
-    <input matInput formControlName="Cognome" required>
-  </mat-form-field>
+    <mat-form-field class="w-full">
+      <mat-label>Cognome</mat-label>
+      <input matInput formControlName="Cognome" required>
+    </mat-form-field>
 
-  <mat-form-field class="w-full">
-    <mat-label>Data Inizio</mat-label>
-    <input matInput [matDatepicker]="picker1" formControlName="Data Inizio" required>
-    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-    <mat-datepicker #picker1></mat-datepicker>
-  </mat-form-field>
+    <mat-form-field class="w-full">
+      <mat-label>Data Inizio</mat-label>
+      <input matInput [matDatepicker]="picker1" formControlName="Data Inizio" required>
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>
 
-  <mat-form-field class="w-full">
-    <mat-label>Data Fine</mat-label>
-    <input matInput [matDatepicker]="picker2" formControlName="Data Fine" required>
-    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-    <mat-datepicker #picker2></mat-datepicker>
-  </mat-form-field>
+    <mat-form-field class="w-full">
+      <mat-label>Data Fine</mat-label>
+      <input matInput [matDatepicker]="picker2" formControlName="Data Fine" required>
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
+    </mat-form-field>
 
-  <mat-form-field class="w-full">
-    <mat-label>Tipo</mat-label>
-    <mat-select formControlName="Tipo">
-      <mat-option *ngFor="let tipo of tipi" [value]="tipo">{{ tipo }}</mat-option>
-    </mat-select>
-  </mat-form-field>
+    <mat-form-field class="w-full">
+      <mat-label>Tipo</mat-label>
+      <mat-select formControlName="Tipo">
+        <mat-option *ngFor="let tipo of tipi" [value]="tipo">{{ tipo }}</mat-option>
+      </mat-select>
+    </mat-form-field>
 
-  <mat-form-field class="w-full">
-    <mat-label>Note</mat-label>
-    <textarea matInput formControlName="Note"></textarea>
-  </mat-form-field>
+    <mat-form-field class="w-full">
+      <mat-label>Note</mat-label>
+      <textarea matInput formControlName="Note"></textarea>
+    </mat-form-field>
 
-  <button mat-raised-button color="primary" type="submit" [disabled]="ferieForm.invalid">
-    Inserisci Ferie
-  </button>
-</form>
+    <button mat-raised-button color="primary" type="submit" [disabled]="ferieForm.invalid">
+      Inserisci Ferie
+    </button>
+  </form>
+</div>
