@@ -46,3 +46,70 @@
 .ferie      { background-color: #ffeb3b; color: #000; } // giallo
 .permesso   { background-color: #9c27b0; }     // viola
 .altro      { background-color: #9e9e9e; }     // grigio
+
+
+.calendario {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  font-family: 'Segoe UI', Roboto, sans-serif;
+
+  .mese {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    border-radius: 12px;
+    padding: 1rem;
+    background-color: #fff;
+
+    .mese-header {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+
+      th, td {
+        width: 14.28%;
+        height: 3.5rem;
+        text-align: center;
+        vertical-align: middle;
+        font-size: 1rem;
+        border: 1px solid #f0f0f0;
+      }
+
+      th {
+        background-color: #f9f9f9;
+        font-weight: 500;
+        color: #666;
+      }
+
+      td {
+        border-radius: 8px;
+        transition: 0.2s;
+        color: #fff;
+
+        &.lavorativo {
+          background-color: #4CAF50;
+        }
+
+        &.festivo {
+          background-color: #F44336;
+        }
+
+        &.vuoto {
+          background-color: #E0E0E0;
+          color: transparent;
+        }
+
+        &:hover:not(.vuoto) {
+          filter: brightness(1.1);
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
+

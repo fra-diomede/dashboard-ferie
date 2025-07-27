@@ -19,12 +19,13 @@ export class HomeComponent {
     this.filtro.set(val);
   }
 
-  getTipoGiorno(date: Date): string {
-    // Esempio semplificato: weekend rosso, feriali verde
-    if (date.getDay() === 0 || date.getDay() === 6) return 'festivo';
-    // TODO: aggiungi controllo ferie, rol, permessi ecc
+  getTipoGiorno(date: Date | null): string {
+    if (!date) return 'vuoto';
+    const giorno = date.getDay();
+    if (giorno === 0 || giorno === 6) return 'festivo'; // domenica o sabato
     return 'lavorativo';
   }
+
 
   private buildCalendar(filtro: MeseFiltro, oggi: Date) {
     const meseCorrente = oggi.getMonth();
@@ -75,19 +76,36 @@ export class HomeComponent {
   }
 
   private buildWeeks(mese: number, anno: number) {
+    const weeks: (Date | null)[][] = [];
     const daysInMonth = new Date(anno, mese + 1, 0).getDate();
-    const weeks = [];
-    let week = [];
+    let week: (Date | null)[] = [];
+
+    // Giorno della settimana del 1° del mese (0=Dom, 1=Lun, ..., 6=Sab)
+    const firstDay = new Date(anno, mese, 1).getDay();
+    const offset = (firstDay + 6) % 7; // Converte da domenica-inizio a lunedì-inizio
+
+    // Aggiunge i placeholder (null) per i giorni prima del 1 del mese
+    for (let i = 0; i < offset; i++) {
+      week.push(null);
+    }
 
     for (let day = 1; day <= daysInMonth; day++) {
-      const date = new Date(anno, mese, day);
-      week.push(date);
-      if (date.getDay() === 0 || day === daysInMonth) {
+      week.push(new Date(anno, mese, day));
+      if (week.length === 7) {
         weeks.push(week);
         week = [];
       }
     }
 
+    if (week.length > 0) {
+      // Completa l'ultima settimana con altri placeholder se necessario
+      while (week.length < 7) {
+        week.push(null);
+      }
+      weeks.push(week);
+    }
+
     return weeks;
   }
+
 }

@@ -1,5 +1,18 @@
-.filter-select {
-  width: 200px;
-  margin: 1rem auto;
-  display: block;
+.filtro-select {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+
+  mat-form-field {
+    width: 240px;
+
+    .mat-form-field-flex {
+      background-color: #f1f5f9;
+      border-radius: 6px;
+    }
+
+    .mat-select-value-text {
+      font-weight: 500;
+    }
+  }
 }

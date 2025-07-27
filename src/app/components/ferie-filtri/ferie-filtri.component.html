@@ -1,4 +1,4 @@
-<mat-form-field appearance="fill" class="filter-select">
+<mat-form-field appearance="outline" class="filter-select">
   <mat-label>Seleziona filtro</mat-label>
   <mat-select [value]="selectedFiltro" (selectionChange)="onFiltroChange($event.value)">
     <mat-option [value]="0">Tutto l’anno</mat-option>
@@ -10,3 +10,4 @@
     <mat-option [value]="12">12 mesi</mat-option>
   </mat-select>
 </mat-form-field>
+
