@@ -1,13 +1,18 @@
-<mat-form-field appearance="outline" class="filter-select">
-  <mat-label>Seleziona filtro</mat-label>
-  <mat-select [value]="selectedFiltro" (selectionChange)="onFiltroChange($event.value)">
-    <mat-option [value]="0">Fine anno</mat-option>
-    <mat-option [value]="1">1 mese</mat-option>
-    <mat-option [value]="2">2 mesi</mat-option>
-    <mat-option [value]="3">3 mesi</mat-option>
-    <mat-option [value]="4">4 mesi</mat-option>
-    <mat-option [value]="6">6 mesi</mat-option>
-    <mat-option [value]="12">Tutto l’anno</mat-option>
-  </mat-select>
-</mat-form-field>
+<div>
+  <h3>Benvenuto nella tua dashboard NOME, di seguito potrai consulatare il tuo calendario e i relativi giorni di assenza</h3>
+  <h3>Seleziona il periodo da consultare:</h3>
+  <mat-form-field appearance="outline" class="filter-select">
+    <mat-label>Seleziona filtro</mat-label>
+    <mat-select [value]="selectedFiltro" (selectionChange)="onFiltroChange($event.value)">
+      <mat-option [value]="0">Fine anno</mat-option>
+      <mat-option [value]="1">1 mese</mat-option>
+      <mat-option [value]="2">2 mesi</mat-option>
+      <mat-option [value]="3">3 mesi</mat-option>
+      <mat-option [value]="4">4 mesi</mat-option>
+      <mat-option [value]="6">6 mesi</mat-option>
+      <mat-option [value]="12">Tutto l’anno</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
 
