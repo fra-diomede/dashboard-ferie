@@ -1,0 +1,43 @@
+﻿.metric-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  color: var(--text-soft);
+}
+
+.list {
+  display: grid;
+  gap: 12px;
+}
+
+.list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--surface-soft);
+}
+
+.item-title {
+  font-weight: 600;
+}
+
+.item-sub {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.empty {
+  color: var(--text-muted);
+  padding: 8px 0;
+}
+
+.breakdown {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 16px;
+}

@@ -1,0 +1,41 @@
+﻿<div class="page">
+  <div class="page-header">
+    <h1 class="page-title">Approvazioni</h1>
+    <div class="filters">
+      <mat-form-field appearance="outline">
+        <mat-label>Username</mat-label>
+        <input matInput [(ngModel)]="targetUsername">
+      </mat-form-field>
+      <mat-slide-toggle [(ngModel)]="pendingOnly" (change)="load()">Solo in attesa</mat-slide-toggle>
+      <button mat-raised-button color="primary" (click)="load()">Carica</button>
+    </div>
+  </div>
+
+  <mat-card>
+    <div class="card-header">Richieste ferie</div>
+    <div class="card-body">
+      <div class="list" *ngIf="ferie.length; else empty">
+        <div class="list-item" *ngFor="let item of ferie">
+          <div class="item-main">
+            <div class="item-title">{{ item.tipoFerie?.descrizione || 'Ferie' }}</div>
+            <div class="item-sub">{{ item.dataInizio }} → {{ item.dataFine }}</div>
+            <div class="item-sub">Stato: {{ item.tipoStatoFerie?.descrizione || 'IN_ATTESA' }}</div>
+          </div>
+          <div class="item-actions">
+            <mat-form-field appearance="outline">
+              <mat-label>Motivo rifiuto</mat-label>
+              <input matInput [(ngModel)]="rejectReason[item.id || 0]">
+            </mat-form-field>
+            <div class="action-buttons">
+              <button mat-stroked-button color="primary" (click)="approve(item)">Approva</button>
+              <button mat-stroked-button color="warn" (click)="reject(item)">Rifiuta</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ng-template #empty>
+        <div class="empty">Nessuna richiesta per l'utente selezionato.</div>
+      </ng-template>
+    </div>
+  </mat-card>
+</div>

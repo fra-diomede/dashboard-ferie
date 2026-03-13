@@ -1,0 +1,51 @@
+﻿.filters {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.calendar-table {
+  width: 100%;
+}
+
+.list {
+  display: grid;
+  gap: 8px;
+}
+
+.list-item {
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--surface-soft);
+}
+
+.report-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+}
+
+.empty {
+  color: var(--text-muted);
+}
+
+.risk-tag {
+  margin-top: 12px;
+  padding: 6px 12px;
+  display: inline-flex;
+  border-radius: 999px;
+  background: rgba(251, 191, 36, 0.2);
+  color: #fde68a;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+}

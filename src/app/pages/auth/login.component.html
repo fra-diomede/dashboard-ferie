@@ -1,0 +1,47 @@
+﻿<div class="auth-shell">
+  <div class="auth-panel">
+    <div class="brand">Timeoffly</div>
+    <mat-card>
+      <mat-card-title>Accesso alla dashboard</mat-card-title>
+      <mat-card-subtitle>Gestisci ferie, team e insight in un unico posto.</mat-card-subtitle>
+
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <mat-form-field appearance="outline">
+          <mat-label>Username</mat-label>
+          <input matInput formControlName="username" autocomplete="username">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password" autocomplete="current-password">
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid || loading">
+          {{ loading ? 'Accesso...' : 'Accedi' }}
+        </button>
+      </form>
+
+      <div class="auth-footer">
+        <span>Non hai un account?</span>
+        <a routerLink="/auth/register">Registrati</a>
+      </div>
+    </mat-card>
+  </div>
+
+  <div class="auth-aside">
+    <div class="aside-card">
+      <h2>Una regia unica per ferie e approvazioni</h2>
+      <p>Monitoraggio KPI, workflow di approvazione e calendario condiviso con grafici sempre aggiornati.</p>
+      <div class="aside-grid">
+        <div>
+          <div class="kpi-value">+18%</div>
+          <div class="kpi-label">Efficienza team</div>
+        </div>
+        <div>
+          <div class="kpi-value">3x</div>
+          <div class="kpi-label">Visibilita ferie</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

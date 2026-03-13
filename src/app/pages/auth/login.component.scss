@@ -1,0 +1,81 @@
+﻿.auth-shell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 32px;
+  padding: 40px;
+}
+
+.auth-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.brand {
+  font-family: 'Sora', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+mat-card {
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+mat-card-title {
+  font-family: 'Sora', sans-serif;
+  font-size: 22px;
+}
+
+form {
+  display: grid;
+  gap: 16px;
+}
+
+button {
+  height: 44px;
+}
+
+.auth-footer {
+  display: flex;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.auth-aside {
+  display: flex;
+  align-items: center;
+}
+
+.aside-card {
+  padding: 28px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.18), rgba(15, 23, 42, 0.9));
+  box-shadow: var(--shadow-1);
+}
+
+.aside-card h2 {
+  font-family: 'Sora', sans-serif;
+  font-size: 22px;
+  margin-top: 0;
+}
+
+.aside-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.aside-grid .kpi-value {
+  font-size: 26px;
+}
+
+.aside-grid .kpi-label {
+  margin-bottom: 0;
+}

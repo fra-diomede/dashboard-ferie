@@ -1,0 +1,120 @@
+﻿<div class="page fade-in" *ngIf="data as dashboard">
+  <div class="page-header">
+    <h1 class="page-title">Dashboard personale</h1>
+    <button mat-stroked-button color="primary" (click)="load()">Aggiorna</button>
+  </div>
+
+  <div class="grid grid-3 stagger">
+    <div class="kpi">
+      <div class="kpi-label">Ferie totali</div>
+      <div class="kpi-value">{{ dashboard.statistiche?.totali ?? 0 }}</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Ferie godute</div>
+      <div class="kpi-value">{{ dashboard.statistiche?.godute ?? 0 }}</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Residue</div>
+      <div class="kpi-value">{{ dashboard.statistiche?.residue ?? 0 }}</div>
+    </div>
+  </div>
+
+  <div class="grid grid-2" style="margin-top: 18px;">
+    <mat-card>
+      <div class="card-header">Utilizzo annuale</div>
+      <div class="card-body">
+        <div class="metric-row">
+          <span>Percentuale usata</span>
+          <strong>{{ dashboard.statistiche?.percentualeUsate ?? 0 }}%</strong>
+        </div>
+        <mat-progress-bar mode="determinate" [value]="dashboard.statistiche?.percentualeUsate ?? 0"></mat-progress-bar>
+        <div class="metric-row">
+          <span>Giorni lavorabili</span>
+          <strong>{{ dashboard.giorniLavorabiliAnno }}</strong>
+        </div>
+        <div class="metric-row">
+          <span>Giorni lavorati</span>
+          <strong>{{ dashboard.giorniEffettiviLavorati }}</strong>
+        </div>
+      </div>
+    </mat-card>
+
+    <mat-card>
+      <div class="card-header">Residuo ferie</div>
+      <div class="card-body" *ngIf="dashboard.residuoFerie as residuo">
+        <div class="metric-row">
+          <span>Totali giorni</span>
+          <strong>{{ residuo.totaliGiorni }}</strong>
+        </div>
+        <div class="metric-row">
+          <span>Totali permessi</span>
+          <strong>{{ residuo.totaliPermessi }}</strong>
+        </div>
+        <div class="metric-row">
+          <span>Avanzate anno precedente</span>
+          <strong>{{ residuo.avanzateAnnoPrecedenteGiorni }}</strong>
+        </div>
+        <div class="metric-row">
+          <span>Permessi avanzati</span>
+          <strong>{{ residuo.avanzateAnnoPrecedentePermessi }}</strong>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+
+  <div class="grid grid-2" style="margin-top: 18px;">
+    <mat-card>
+      <div class="card-header">Ferie in arrivo</div>
+      <div class="card-body">
+        <div class="list" *ngIf="dashboard.upcomingFerie?.length; else noFerie">
+          <div class="list-item" *ngFor="let ferie of dashboard.upcomingFerie">
+            <div>
+              <div class="item-title">{{ ferie.tipoFerie?.descrizione || 'Ferie' }}</div>
+              <div class="item-sub">{{ formatDate(ferie.dataInizio) }} → {{ formatDate(ferie.dataFine) }}</div>
+            </div>
+            <span class="tag">{{ ferie.tipoStatoFerie?.descrizione || 'In revisione' }}</span>
+          </div>
+        </div>
+        <ng-template #noFerie>
+          <div class="empty">Nessuna ferie pianificata per ora.</div>
+        </ng-template>
+      </div>
+    </mat-card>
+
+    <mat-card>
+      <div class="card-header">Suggerimenti smart</div>
+      <div class="card-body">
+        <div class="list" *ngIf="dashboard.suggestions?.length; else noSuggestions">
+          <div class="list-item" *ngFor="let s of dashboard.suggestions">
+            <div>
+              <div class="item-title">{{ formatDate(s.start) }} → {{ formatDate(s.end) }}</div>
+              <div class="item-sub">{{ s.reason }}</div>
+            </div>
+            <span class="tag">Score {{ s.score | number: '1.0-0' }}</span>
+          </div>
+        </div>
+        <ng-template #noSuggestions>
+          <div class="empty">Nessun suggerimento disponibile.</div>
+        </ng-template>
+      </div>
+    </mat-card>
+  </div>
+
+  <mat-card style="margin-top: 18px;" *ngIf="breakdown.length">
+    <div class="card-header">Breakdown per tipologia</div>
+    <div class="card-body">
+      <div class="breakdown">
+        <div *ngFor="let item of breakdown">
+          <div class="item-title">{{ item.label }}</div>
+          <div class="kpi-value">{{ item.value }}</div>
+        </div>
+      </div>
+    </div>
+  </mat-card>
+</div>
+
+<div class="page" *ngIf="loading">
+  <mat-card>
+    <div class="card-body">Caricamento dashboard in corso...</div>
+  </mat-card>
+</div>

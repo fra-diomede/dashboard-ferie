@@ -1,0 +1,79 @@
+﻿<div class="page">
+  <div class="page-header">
+    <h1 class="page-title">Gestione ferie</h1>
+    <div class="filters">
+      <mat-form-field appearance="outline">
+        <mat-label>Stato</mat-label>
+        <mat-select [(value)]="selectedStatus" (selectionChange)="applyFilters()">
+          <mat-option value="ALL">Tutti</mat-option>
+          <mat-option *ngFor="let s of stati" [value]="s.descrizione">{{ s.descrizione }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Anno</mat-label>
+        <input matInput type="number" [(ngModel)]="year" (ngModelChange)="applyFilters()">
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="grid grid-2">
+    <mat-card>
+      <div class="card-header">Richieste ferie</div>
+      <div class="card-body">
+        <div class="list" *ngIf="filtered.length; else emptyList">
+          <div class="list-item" *ngFor="let item of filtered">
+            <div class="item-content" (click)="select(item)">
+              <div class="item-title">{{ item.tipoFerie?.descrizione || 'Ferie' }}</div>
+              <div class="item-sub">{{ item.dataInizio }} → {{ item.dataFine }}</div>
+            </div>
+            <div class="item-actions">
+              <span class="tag">{{ item.tipoStatoFerie?.descrizione || 'IN_ATTESA' }}</span>
+              <button mat-icon-button color="warn" (click)="remove(item)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+        <ng-template #emptyList>
+          <div class="empty">Nessuna richiesta trovata.</div>
+        </ng-template>
+      </div>
+    </mat-card>
+
+    <mat-card>
+      <div class="card-header">{{ editingId ? 'Aggiorna richiesta' : 'Nuova richiesta' }}</div>
+      <div class="card-body">
+        <form [formGroup]="form" (ngSubmit)="submit()" class="form-grid">
+          <mat-form-field appearance="outline">
+            <mat-label>Data inizio</mat-label>
+            <input matInput [matDatepicker]="startPicker" formControlName="dataInizio" required>
+            <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+            <mat-datepicker #startPicker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Data fine</mat-label>
+            <input matInput [matDatepicker]="endPicker" formControlName="dataFine" required>
+            <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+            <mat-datepicker #endPicker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Tipologia</mat-label>
+            <mat-select formControlName="tipoFerieId">
+              <mat-option *ngFor="let t of tipi" [value]="t.id">{{ t.descrizione }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <div class="form-actions">
+            <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+              {{ editingId ? 'Salva modifiche' : 'Invia richiesta' }}
+            </button>
+            <button mat-stroked-button type="button" (click)="resetForm()" *ngIf="editingId">Annulla</button>
+          </div>
+        </form>
+      </div>
+    </mat-card>
+  </div>
+</div>

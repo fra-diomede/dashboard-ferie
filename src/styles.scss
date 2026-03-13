@@ -1,4 +1,234 @@
-/* You can add global styles to this file, and also import other style files */
+﻿@use '@angular/material' as mat;
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@include mat.core();
+
+$primary: mat.m2-define-palette(mat.$m2-green-palette, 600, 300, 800);
+$accent: mat.m2-define-palette(mat.$m2-teal-palette, 500);
+$warn: mat.m2-define-palette(mat.$m2-red-palette);
+
+$typography: mat.m2-define-typography-config(
+  $font-family: 'Source Sans 3, system-ui, sans-serif',
+  $headline-1: mat.m2-define-typography-level(48px, 56px, 600, 'Sora, sans-serif'),
+  $headline-2: mat.m2-define-typography-level(36px, 44px, 600, 'Sora, sans-serif'),
+  $headline-3: mat.m2-define-typography-level(28px, 36px, 600, 'Sora, sans-serif'),
+  $headline-4: mat.m2-define-typography-level(22px, 30px, 600, 'Sora, sans-serif'),
+  $headline-5: mat.m2-define-typography-level(18px, 26px, 600, 'Sora, sans-serif'),
+  $headline-6: mat.m2-define-typography-level(16px, 24px, 600, 'Sora, sans-serif'),
+  $subtitle-1: mat.m2-define-typography-level(16px, 24px, 500),
+  $body-1: mat.m2-define-typography-level(15px, 24px, 400),
+  $body-2: mat.m2-define-typography-level(13px, 20px, 400),
+  $button: mat.m2-define-typography-level(14px, 20px, 600, 'Source Sans 3, sans-serif', 0.6px),
+  $caption: mat.m2-define-typography-level(12px, 18px, 400)
+);
+
+$theme: mat.m2-define-light-theme((
+  color: (
+    primary: $primary,
+    accent: $accent,
+    warn: $warn
+  ),
+  typography: $typography,
+  density: 0
+));
+
+@include mat.all-component-themes($theme);
+
+:root {
+  color-scheme: light;
+  --bg: #0e1216;
+  --bg-elevated: #141a20;
+  --surface: #1b2229;
+  --surface-soft: #202830;
+  --border: rgba(255, 255, 255, 0.08);
+  --emerald: #10b981;
+  --emerald-strong: #059669;
+  --text: #e6eef3;
+  --text-muted: #97a6b2;
+  --text-soft: #c4d0d9;
+  --shadow-1: 0 14px 30px rgba(3, 8, 13, 0.45);
+  --shadow-2: 0 8px 18px rgba(3, 8, 13, 0.35);
+  --radius-lg: 18px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Source Sans 3', system-ui, sans-serif;
+  background:
+    radial-gradient(1200px 800px at 10% -10%, rgba(16, 185, 129, 0.15), transparent 55%),
+    radial-gradient(1000px 700px at 90% 10%, rgba(59, 130, 246, 0.12), transparent 60%),
+    var(--bg);
+  color: var(--text);
+}
+
+a {
+  color: var(--emerald);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--emerald-strong);
+}
+
+.page {
+  padding: 28px 32px 40px;
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.page-title {
+  font-family: 'Sora', sans-serif;
+  font-weight: 600;
+  font-size: 28px;
+  letter-spacing: -0.4px;
+  margin: 0;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-1);
+}
+
+.card-header {
+  padding: 18px 22px 0;
+  font-family: 'Sora', sans-serif;
+  font-size: 16px;
+  letter-spacing: 0.2px;
+  color: var(--text-soft);
+}
+
+.card-body {
+  padding: 18px 22px 22px;
+}
+
+.grid {
+  display: grid;
+  gap: 18px;
+}
+
+.grid-2 {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.grid-3 {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.kpi {
+  padding: 18px 20px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01));
+}
+
+.kpi-label {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.kpi-value {
+  font-family: 'Sora', sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(16, 185, 129, 0.18);
+  color: #a7f3d0;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+}
+
+.fade-in {
+  animation: fadeIn 0.6s ease forwards;
+}
+
+.stagger > * {
+  animation: fadeUp 0.6s ease forwards;
+  opacity: 0;
+}
+
+.stagger > *:nth-child(1) { animation-delay: 0.05s; }
+.stagger > *:nth-child(2) { animation-delay: 0.1s; }
+.stagger > *:nth-child(3) { animation-delay: 0.15s; }
+.stagger > *:nth-child(4) { animation-delay: 0.2s; }
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.mat-mdc-card {
+  background: var(--surface);
+  color: var(--text);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-2);
+}
+
+.mat-mdc-table {
+  background: transparent;
+}
+
+.mat-mdc-header-row {
+  background: var(--surface-soft);
+}
+
+.mat-mdc-cell,
+.mat-mdc-header-cell {
+  color: var(--text-soft);
+}
+
+.mat-mdc-form-field {
+  width: 100%;
+}
+
+.mat-mdc-raised-button.mat-primary {
+  color: #062016;
+}
+
+.toast-success .mdc-snackbar__surface {
+  background: #064e3b !important;
+  color: #ecfdf5 !important;
+}
+
+.toast-error .mdc-snackbar__surface {
+  background: #7f1d1d !important;
+  color: #fef2f2 !important;
+}
+
+.toast-info .mdc-snackbar__surface {
+  background: #0f172a !important;
+  color: #e2e8f0 !important;
+}

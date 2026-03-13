@@ -1,0 +1,69 @@
+﻿import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { AuthService } from '../../core/services/auth.service';
+import { NotificationService } from '../../core/services/notification.service';
+
+@Component({
+  selector: 'app-login',
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    RouterModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatCardModule,
+    MatIconModule
+  ],
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
+})
+export class LoginComponent implements OnInit {
+  loading = false;
+
+  form: FormGroup;
+
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private notifications: NotificationService,
+    private router: Router
+  ) {
+    this.form = this.fb.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
+    });
+  }
+
+  ngOnInit() {
+    if (this.authService.isLoggedIn()) {
+      this.router.navigate(['/dashboard']);
+    }
+  }
+
+  submit() {
+    if (this.form.invalid || this.loading) return;
+    this.loading = true;
+    const { username, password } = this.form.getRawValue();
+    this.authService.login({ username: username ?? '', password: password ?? '' }).subscribe({
+      next: () => {
+        this.notifications.success('Accesso effettuato con successo');
+        this.router.navigate(['/dashboard']);
+      },
+      error: () => {
+        this.loading = false;
+      },
+      complete: () => {
+        this.loading = false;
+      }
+    });
+  }
+}

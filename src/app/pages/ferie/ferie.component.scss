@@ -1,0 +1,53 @@
+﻿.filters {
+  display: flex;
+  gap: 12px;
+}
+
+.list {
+  display: grid;
+  gap: 12px;
+}
+
+.list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--surface-soft);
+}
+
+.item-content {
+  cursor: pointer;
+}
+
+.item-title {
+  font-weight: 600;
+}
+
+.item-sub {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.item-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.form-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.empty {
+  color: var(--text-muted);
+}

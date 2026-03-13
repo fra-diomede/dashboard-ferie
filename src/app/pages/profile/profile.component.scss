@@ -1,0 +1,16 @@
+﻿.info-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.form-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.delete-grid {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}

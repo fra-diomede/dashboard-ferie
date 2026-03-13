@@ -1,0 +1,13 @@
+﻿.filters {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.calendar-table {
+  width: 100%;
+}
+
+th, td {
+  color: var(--text-soft);
+}

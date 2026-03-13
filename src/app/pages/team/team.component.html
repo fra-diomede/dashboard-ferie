@@ -1,0 +1,150 @@
+﻿<div class="page">
+  <div class="page-header">
+    <h1 class="page-title">Insight team</h1>
+    <div class="filters">
+      <mat-form-field appearance="outline">
+        <mat-label>Team</mat-label>
+        <input matInput [(ngModel)]="teamName" (blur)="saveTeam()">
+      </mat-form-field>
+      <button mat-raised-button color="primary" (click)="loadCalendar()">Aggiorna calendario</button>
+    </div>
+  </div>
+
+  <div class="grid grid-2">
+    <mat-card>
+      <div class="card-header">Calendario team</div>
+      <div class="card-body">
+        <div class="controls">
+          <mat-form-field appearance="outline">
+            <mat-label>Dal</mat-label>
+            <input matInput type="date" [(ngModel)]="fromDate">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Al</mat-label>
+            <input matInput type="date" [(ngModel)]="toDate">
+          </mat-form-field>
+          <mat-slide-toggle [(ngModel)]="approvedOnly">Solo approvate</mat-slide-toggle>
+        </div>
+
+        <table mat-table [dataSource]="calendar" class="calendar-table">
+          <ng-container matColumnDef="username">
+            <th mat-header-cell *matHeaderCellDef>Utente</th>
+            <td mat-cell *matCellDef="let row">{{ row.username }}</td>
+          </ng-container>
+          <ng-container matColumnDef="start">
+            <th mat-header-cell *matHeaderCellDef>Inizio</th>
+            <td mat-cell *matCellDef="let row">{{ row.start }}</td>
+          </ng-container>
+          <ng-container matColumnDef="end">
+            <th mat-header-cell *matHeaderCellDef>Fine</th>
+            <td mat-cell *matCellDef="let row">{{ row.end }}</td>
+          </ng-container>
+          <ng-container matColumnDef="tipo">
+            <th mat-header-cell *matHeaderCellDef>Tipo</th>
+            <td mat-cell *matCellDef="let row">{{ row.tipoFerie }}</td>
+          </ng-container>
+          <ng-container matColumnDef="stato">
+            <th mat-header-cell *matHeaderCellDef>Stato</th>
+            <td mat-cell *matCellDef="let row">{{ row.stato }}</td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
+    </mat-card>
+
+    <mat-card>
+      <div class="card-header">Who is off</div>
+      <div class="card-body">
+        <div class="controls">
+          <mat-form-field appearance="outline">
+            <mat-label>Data</mat-label>
+            <input matInput type="date" [(ngModel)]="whoIsOffDate">
+          </mat-form-field>
+          <button mat-stroked-button (click)="loadWhoIsOff()">Verifica</button>
+        </div>
+        <div class="list" *ngIf="whoIsOffUsers.length; else noOff">
+          <div class="list-item" *ngFor="let user of whoIsOffUsers">
+            {{ user }}
+          </div>
+        </div>
+        <ng-template #noOff>
+          <div class="empty">Nessun utente assente per la data selezionata.</div>
+        </ng-template>
+      </div>
+    </mat-card>
+  </div>
+
+  <div class="grid grid-2" style="margin-top: 18px;">
+    <mat-card>
+      <div class="card-header">Report mensile</div>
+      <div class="card-body">
+        <div class="controls">
+          <mat-form-field appearance="outline">
+            <mat-label>Anno</mat-label>
+            <input matInput type="number" [(ngModel)]="reportYear">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Mese</mat-label>
+            <input matInput type="number" [(ngModel)]="reportMonth" min="1" max="12">
+          </mat-form-field>
+          <button mat-stroked-button (click)="loadReport()">Genera</button>
+        </div>
+
+        <div *ngIf="report" class="report-grid">
+          <div class="kpi">
+            <div class="kpi-label">Totali</div>
+            <div class="kpi-value">{{ report.totalRequests }}</div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-label">Approvate</div>
+            <div class="kpi-value">{{ report.approvedRequests }}</div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-label">Respinte</div>
+            <div class="kpi-value">{{ report.rejectedRequests }}</div>
+          </div>
+        </div>
+        <div class="list" *ngIf="report?.daysByUser as daysByUser">
+          <div class="list-item" *ngFor="let entry of daysByUser | keyvalue">
+            {{ entry.key }} · {{ entry.value }} giorni
+          </div>
+        </div>
+      </div>
+    </mat-card>
+
+    <mat-card>
+      <div class="card-header">Forecast utente</div>
+      <div class="card-body">
+        <div class="controls">
+          <mat-form-field appearance="outline">
+            <mat-label>Username</mat-label>
+            <input matInput [(ngModel)]="forecastUsername">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Anno</mat-label>
+            <input matInput type="number" [(ngModel)]="forecastYear">
+          </mat-form-field>
+          <button mat-stroked-button (click)="loadForecast()">Calcola</button>
+        </div>
+
+        <div *ngIf="forecast" class="report-grid">
+          <div class="kpi">
+            <div class="kpi-label">Entitlement</div>
+            <div class="kpi-value">{{ forecast.totalEntitlement }}</div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-label">Consumate</div>
+            <div class="kpi-value">{{ forecast.consumedToDate }}</div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-label">Residue previste</div>
+            <div class="kpi-value">{{ forecast.projectedResidual }}</div>
+          </div>
+        </div>
+        <div *ngIf="forecast?.riskUnusedDays" class="risk-tag">Rischio giorni non utilizzati</div>
+      </div>
+    </mat-card>
+  </div>
+</div>
