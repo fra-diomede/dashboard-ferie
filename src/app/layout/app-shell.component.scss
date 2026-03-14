@@ -7,6 +7,8 @@
   background: var(--bg-elevated);
   border-right: 1px solid var(--border);
   color: var(--text-soft);
+  display: flex;
+  flex-direction: column;
 }
 
 .brand {
@@ -24,18 +26,35 @@
   letter-spacing: 0.3px;
 }
 
-mat-nav-list a {
+.nav-section {
+  padding-bottom: 12px;
+}
+
+.nav-section-profile {
+  margin-top: auto;
+  padding-bottom: 18px;
+}
+
+.nav-section-title {
+  padding: 10px 20px 4px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--text-muted);
+}
+
+.nav-list a {
   margin: 6px 12px;
   border-radius: 10px;
   color: var(--text-muted);
 }
 
-mat-nav-list a.active {
+.nav-list a.active {
   background: rgba(16, 185, 129, 0.18);
   color: #d1fae5;
 }
 
-mat-nav-list a mat-icon {
+.nav-list a mat-icon {
   color: inherit;
 }
 

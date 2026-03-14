@@ -1,33 +1,49 @@
-ï»¿<mat-sidenav-container class="shell">
+<mat-sidenav-container class="shell">
   <mat-sidenav mode="side" opened class="side">
     <div class="brand">
       <div class="logo">Timeoffly</div>
       <span class="tag">Enterprise</span>
     </div>
 
-    <mat-nav-list>
-      <ng-container *ngFor="let item of navItems">
+    <div class="nav-section">
+      <div class="nav-section-title">Funzionalità</div>
+      <mat-nav-list class="nav-list">
+        <ng-container *ngFor="let item of navItems">
+          <a mat-list-item
+             *ngIf="hasAccess(item)"
+             [routerLink]="item.route"
+             routerLinkActive="active">
+            <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+            <span matListItemTitle>{{ item.label }}</span>
+          </a>
+        </ng-container>
+      </mat-nav-list>
+    </div>
+
+    <div class="nav-section nav-section-profile">
+      <div class="nav-section-title">Profilo</div>
+      <mat-nav-list class="nav-list">
         <a mat-list-item
-           *ngIf="hasAccess(item)"
-           [routerLink]="item.route"
+           *ngIf="hasAccess(profileItem)"
+           [routerLink]="profileItem.route"
            routerLinkActive="active">
-          <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
-          <span matListItemTitle>{{ item.label }}</span>
+          <mat-icon matListItemIcon>{{ profileItem.icon }}</mat-icon>
+          <span matListItemTitle>{{ profileItem.label }}</span>
         </a>
-      </ng-container>
-    </mat-nav-list>
+      </mat-nav-list>
+    </div>
   </mat-sidenav>
 
   <mat-sidenav-content class="content">
     <mat-toolbar class="topbar" color="primary">
       <div class="topbar-left">
-        <div class="breadcrumbs">Gestione ferie â€¢ Dashboard professionale</div>
+        <div class="breadcrumbs">Gestione ferie • Dashboard professionale</div>
       </div>
 
       <span class="spacer"></span>
 
       <div class="user" *ngIf="(user$ | async) as user">
-        <span class="user-name">{{ user.username }}</span>
+        <span class="user-name">{{ displayName(user) }}</span>
         <button mat-icon-button [matMenuTriggerFor]="userMenu" aria-label="User menu">
           <mat-icon>account_circle</mat-icon>
         </button>
@@ -50,3 +66,4 @@
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
+

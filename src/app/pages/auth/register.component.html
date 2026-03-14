@@ -7,6 +7,16 @@
 
       <form [formGroup]="form" (ngSubmit)="submit()">
         <mat-form-field appearance="outline">
+          <mat-label>Nome</mat-label>
+          <input matInput formControlName="nome" autocomplete="given-name">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Cognome</mat-label>
+          <input matInput formControlName="cognome" autocomplete="family-name">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
           <mat-label>Username</mat-label>
           <input matInput formControlName="username" autocomplete="username">
         </mat-form-field>
@@ -14,6 +24,21 @@
         <mat-form-field appearance="outline">
           <mat-label>Email</mat-label>
           <input matInput formControlName="email" autocomplete="email">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Contratto</mat-label>
+          <input matInput formControlName="contratto" placeholder="Es. Metalmeccanico">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Ferie annue</mat-label>
+          <input matInput type="number" min="0" step="1" inputmode="numeric" formControlName="ferieAnnue" placeholder="Es. 26">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Ore permessi annue</mat-label>
+          <input matInput type="number" min="0" step="1" inputmode="numeric" formControlName="permessiAnnueOre" placeholder="Es. 32">
         </mat-form-field>
 
         <mat-form-field appearance="outline">

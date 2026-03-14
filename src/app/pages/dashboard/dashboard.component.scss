@@ -1,9 +1,34 @@
-﻿.metric-row {
+.page-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.page-subtitle {
+  font-size: 14px;
+  color: var(--text-soft);
+}
+
+.kpi {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.24), rgba(59, 130, 246, 0.12));
+  border-color: rgba(16, 185, 129, 0.35);
+  box-shadow: var(--shadow-2);
+}
+
+.kpi-label {
+  color: var(--text-soft);
+}
+
+.kpi-value {
+  color: #eafff7;
+}
+
+.metric-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 12px;
-  color: var(--text-soft);
+  color: var(--text);
 }
 
 .list {
@@ -18,8 +43,8 @@
   gap: 12px;
   padding: 12px 14px;
   border-radius: var(--radius-sm);
-  border: 1px solid var(--border);
-  background: var(--surface-soft);
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.55), rgba(17, 24, 39, 0.35));
 }
 
 .item-title {
@@ -27,7 +52,7 @@
 }
 
 .item-sub {
-  color: var(--text-muted);
+  color: var(--text-soft);
   font-size: 13px;
 }
 

@@ -1,6 +1,9 @@
 ﻿<div class="page">
   <div class="page-header">
-    <h1 class="page-title">Calendario annuale</h1>
+    <div class="page-title-group">
+      <h1 class="page-title">Calendario annuale</h1>
+      <div class="page-subtitle">Festivi e panoramica per mese</div>
+    </div>
     <div class="filters">
       <mat-form-field appearance="outline">
         <mat-label>Anno</mat-label>
@@ -14,38 +17,55 @@
     </div>
   </div>
 
-  <mat-card>
-    <div class="card-header">Festivi e calendario</div>
-    <div class="card-body">
-      <table mat-table [dataSource]="calendario" class="calendar-table">
-        <ng-container matColumnDef="data">
-          <th mat-header-cell *matHeaderCellDef>Data</th>
-          <td mat-cell *matCellDef="let row">{{ row.data }}</td>
-        </ng-container>
+  <div class="month-grid">
+    <mat-card class="month-card" *ngFor="let month of months">
+      <div class="month-header">
+        <div>
+          <div class="month-title">{{ month.monthName }}</div>
+          <div class="month-year">{{ month.year }}</div>
+        </div>
+        <div class="month-meta">
+          <span class="pill" [class.muted]="!month.holidayCount">{{ month.holidayCount }} festivi</span>
+        </div>
+      </div>
 
-        <ng-container matColumnDef="giorno">
-          <th mat-header-cell *matHeaderCellDef>Giorno</th>
-          <td mat-cell *matCellDef="let row">{{ row.giornoSettimana }}</td>
-        </ng-container>
+      <div class="weekday-row">
+        <span>Lun</span>
+        <span>Mar</span>
+        <span>Mer</span>
+        <span>Gio</span>
+        <span>Ven</span>
+        <span>Sab</span>
+        <span>Dom</span>
+      </div>
 
-        <ng-container matColumnDef="festivo">
-          <th mat-header-cell *matHeaderCellDef>Festivo</th>
-          <td mat-cell *matCellDef="let row">
-            <span class="tag" *ngIf="row.officialFestivo">Ufficiale</span>
-            <span *ngIf="!row.officialFestivo">-</span>
-          </td>
-        </ng-container>
+      <div class="weeks">
+        <div class="week" *ngFor="let week of month.weeks">
+          <div
+            class="day"
+            *ngFor="let day of week"
+            [ngClass]="{
+              empty: !day,
+              weekend: day?.isWeekend,
+              holiday: day?.isHoliday,
+              official: day?.isOfficial
+            }"
+            [attr.title]="day?.label || null">
+            {{ day?.day || '' }}
+          </div>
+        </div>
+      </div>
 
-        <ng-container matColumnDef="tipo">
-          <th mat-header-cell *matHeaderCellDef>Descrizione</th>
-          <td mat-cell *matCellDef="let row">
-            {{ row.festivo?.localName || row.festivo?.name || '-' }}
-          </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-      </table>
-    </div>
-  </mat-card>
+      <div class="holiday-list" *ngIf="month.holidays.length; else noHoliday">
+        <div class="holiday-item" *ngFor="let item of month.holidays">
+          <span class="holiday-date">{{ item.dateLabel }}</span>
+          <span class="holiday-name">{{ item.label || 'Festivo' }}</span>
+        </div>
+      </div>
+      <ng-template #noHoliday>
+        <div class="holiday-empty">Nessun festivo nel mese.</div>
+      </ng-template>
+    </mat-card>
+  </div>
 </div>
+

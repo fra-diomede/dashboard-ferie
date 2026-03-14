@@ -103,6 +103,8 @@ export class AuthService {
       refreshToken,
       expiresAt: resp.expiresAt ?? current?.expiresAt ?? null,
       username: resp.username ?? current?.username ?? '',
+      nome: resp.nome ?? current?.nome ?? null,
+      cognome: resp.cognome ?? current?.cognome ?? null,
       ruoli: resp.ruoli ?? current?.ruoli ?? []
     };
   }

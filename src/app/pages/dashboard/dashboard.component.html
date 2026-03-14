@@ -1,6 +1,9 @@
 ﻿<div class="page fade-in" *ngIf="data as dashboard">
   <div class="page-header">
-    <h1 class="page-title">Dashboard personale</h1>
+    <div class="page-title-group">
+      <h1 class="page-title">Dashboard personale</h1>
+      <div class="page-subtitle" *ngIf="welcomeName">Benvenuto {{ welcomeName }} nella tua dashboard</div>
+    </div>
     <button mat-stroked-button color="primary" (click)="load()">Aggiorna</button>
   </div>
 
@@ -70,7 +73,7 @@
           <div class="list-item" *ngFor="let ferie of dashboard.upcomingFerie">
             <div>
               <div class="item-title">{{ ferie.tipoFerie?.descrizione || 'Ferie' }}</div>
-              <div class="item-sub">{{ formatDate(ferie.dataInizio) }} → {{ formatDate(ferie.dataFine) }}</div>
+              <div class="item-sub">{{ formatDate(ferie.dataInizio) }} -> {{ formatDate(ferie.dataFine) }}</div>
             </div>
             <span class="tag">{{ ferie.tipoStatoFerie?.descrizione || 'In revisione' }}</span>
           </div>
@@ -87,7 +90,7 @@
         <div class="list" *ngIf="dashboard.suggestions?.length; else noSuggestions">
           <div class="list-item" *ngFor="let s of dashboard.suggestions">
             <div>
-              <div class="item-title">{{ formatDate(s.start) }} → {{ formatDate(s.end) }}</div>
+              <div class="item-title">{{ formatDate(s.start) }} -> {{ formatDate(s.end) }}</div>
               <div class="item-sub">{{ s.reason }}</div>
             </div>
             <span class="tag">Score {{ s.score | number: '1.0-0' }}</span>
@@ -118,3 +121,6 @@
     <div class="card-body">Caricamento dashboard in corso...</div>
   </mat-card>
 </div>
+
+
+

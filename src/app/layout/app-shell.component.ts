@@ -41,9 +41,10 @@ export class AppShellComponent {
     { label: 'Calendario', route: '/calendario', icon: 'calendar_month' },
     { label: 'Team', route: '/team', icon: 'groups', roles: ['MANAGER', 'ADMIN'] },
     { label: 'Approvazioni', route: '/approvals', icon: 'verified', roles: ['MANAGER', 'ADMIN'] },
-    { label: 'Amministrazione', route: '/admin', icon: 'admin_panel_settings', roles: ['ADMIN'] },
-    { label: 'Profilo', route: '/profilo', icon: 'account_circle' }
+    { label: 'Amministrazione', route: '/admin', icon: 'admin_panel_settings', roles: ['ADMIN'] }
   ];
+
+  readonly profileItem: NavItem = { label: 'Profilo', route: '/profilo', icon: 'account_circle' };
 
   user$: Observable<AuthSession | null>;
 
@@ -62,5 +63,13 @@ export class AppShellComponent {
       error: () => this.authService.redirectToLogin(),
       complete: () => this.authService.redirectToLogin()
     });
+  }
+
+  displayName(user: AuthSession | null): string {
+    if (!user) return '';
+    const nome = user.nome?.trim() ?? '';
+    const cognome = user.cognome?.trim() ?? '';
+    const fullName = [nome, cognome].filter(Boolean).join(' ');
+    return fullName || user.username;
   }
 }

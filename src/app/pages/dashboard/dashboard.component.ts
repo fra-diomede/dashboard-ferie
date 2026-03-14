@@ -21,10 +21,12 @@ export class DashboardComponent implements OnInit {
   loading = false;
   data?: DashboardDto;
   breakdown: { label: string; value: number }[] = [];
+  welcomeName = '';
 
   constructor(private dashboardService: DashboardService, private authService: AuthService) {}
 
   ngOnInit() {
+    this.setWelcomeName();
     this.load();
   }
 
@@ -58,5 +60,20 @@ export class DashboardComponent implements OnInit {
       .filter(([key]) => key && key !== '[object Object]')
       .map(([key, value]) => ({ label: key, value: value as number }));
     return entries;
+  }
+
+  private setWelcomeName() {
+    const session = this.authService.getSession();
+    const nome = session?.nome?.trim();
+    if (nome) {
+      this.welcomeName = nome;
+      return;
+    }
+    const cognome = session?.cognome?.trim();
+    if (cognome) {
+      this.welcomeName = cognome;
+      return;
+    }
+    this.welcomeName = session?.username ?? '';
   }
 }

@@ -1,9 +1,11 @@
-﻿export interface AuthResponse {
+export interface AuthResponse {
   tokenType: string;
   accessToken: string | null;
   refreshToken: string | null;
   expiresAt: string | null;
   username: string;
+  nome?: string | null;
+  cognome?: string | null;
   ruoli: string[];
 }
 
@@ -16,6 +18,11 @@ export interface RegisterRequest {
   username: string;
   email: string;
   password: string;
+  nome: string;
+  cognome: string;
+  contratto: string;
+  ferieAnnue: number;
+  permessiAnnueOre: number;
   ruoli?: string[];
 }
 
@@ -29,5 +36,7 @@ export interface AuthSession {
   refreshToken: string;
   expiresAt: string | null;
   username: string;
+  nome?: string | null;
+  cognome?: string | null;
   ruoli: string[];
 }

@@ -36,8 +36,13 @@ export class RegisterComponent {
     private router: Router
   ) {
     this.form = this.fb.group({
+      nome: ['', Validators.required],
+      cognome: ['', Validators.required],
       username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
+      contratto: ['', Validators.required],
+      ferieAnnue: [null, [Validators.required, Validators.min(0)]],
+      permessiAnnueOre: [null, [Validators.required, Validators.min(0)]],
       password: ['', Validators.required]
     });
   }
@@ -45,9 +50,19 @@ export class RegisterComponent {
   submit() {
     if (this.form.invalid || this.loading) return;
     this.loading = true;
-    const { username, email, password } = this.form.getRawValue();
+    const { nome, cognome, username, email, contratto, ferieAnnue, permessiAnnueOre, password } = this.form.getRawValue();
     this.authService
-      .register({ username: username ?? '', email: email ?? '', password: password ?? '' })
+      .register({
+        nome: nome ?? '',
+        cognome: cognome ?? '',
+        username: username ?? '',
+        email: email ?? '',
+        contratto: contratto ?? '',
+        ferieAnnue: typeof ferieAnnue === 'number' ? ferieAnnue : Number(ferieAnnue ?? 0),
+        permessiAnnueOre:
+          typeof permessiAnnueOre === 'number' ? permessiAnnueOre : Number(permessiAnnueOre ?? 0),
+        password: password ?? ''
+      })
       .subscribe({
         next: () => {
           this.notifications.success('Registrazione completata. Ora puoi accedere.');
