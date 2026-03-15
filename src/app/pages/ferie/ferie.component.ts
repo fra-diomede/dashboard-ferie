@@ -85,15 +85,15 @@ export class FerieComponent implements OnInit {
       const status = item.tipoStatoFerie?.descrizione ?? '';
       const matchStatus = this.selectedStatus === 'ALL' || status === this.selectedStatus;
       const dateParsed = parseItalianDate(item.dataInizio);
-      const matchYear = dateParsed ? dateParsed.year() === this.year : true;
+      const matchYear = dateParsed ? dateParsed.getFullYear() === this.year : true;
       return matchStatus && matchYear;
     });
   }
 
   select(item: FerieDto) {
     this.editingId = item.id ?? null;
-    const start = parseItalianDate(item.dataInizio)?.toDate() ?? null;
-    const end = parseItalianDate(item.dataFine)?.toDate() ?? null;
+    const start = parseItalianDate(item.dataInizio) ?? null;
+    const end = parseItalianDate(item.dataFine) ?? null;
     this.form.patchValue({
       dataInizio: start,
       dataFine: end,

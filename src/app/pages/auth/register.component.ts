@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { AuthService } from '../../core/services/auth.service';
 import { NotificationService } from '../../core/services/notification.service';
+import { BrandLockupComponent } from '../../components/brand-lockup/brand-lockup.component';
 
 @Component({
   selector: 'app-register',
@@ -19,7 +20,8 @@ import { NotificationService } from '../../core/services/notification.service';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatCardModule
+    MatCardModule,
+    BrandLockupComponent
   ],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
@@ -41,8 +43,8 @@ export class RegisterComponent {
       username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       contratto: ['', Validators.required],
-      ferieAnnue: [null, [Validators.required, Validators.min(0)]],
-      permessiAnnueOre: [null, [Validators.required, Validators.min(0)]],
+      giorniTotali: [null, [Validators.required, Validators.min(0)]],
+      oreTotali: [null, [Validators.required, Validators.min(0)]],
       password: ['', Validators.required]
     });
   }
@@ -50,7 +52,7 @@ export class RegisterComponent {
   submit() {
     if (this.form.invalid || this.loading) return;
     this.loading = true;
-    const { nome, cognome, username, email, contratto, ferieAnnue, permessiAnnueOre, password } = this.form.getRawValue();
+    const { nome, cognome, username, email, contratto, giorniTotali, oreTotali, password } = this.form.getRawValue();
     this.authService
       .register({
         nome: nome ?? '',
@@ -58,9 +60,8 @@ export class RegisterComponent {
         username: username ?? '',
         email: email ?? '',
         contratto: contratto ?? '',
-        ferieAnnue: typeof ferieAnnue === 'number' ? ferieAnnue : Number(ferieAnnue ?? 0),
-        permessiAnnueOre:
-          typeof permessiAnnueOre === 'number' ? permessiAnnueOre : Number(permessiAnnueOre ?? 0),
+        giorniTotali: typeof giorniTotali === 'number' ? giorniTotali : Number(giorniTotali ?? 0),
+        oreTotali: typeof oreTotali === 'number' ? oreTotali : Number(oreTotali ?? 0),
         password: password ?? ''
       })
       .subscribe({

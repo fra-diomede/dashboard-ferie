@@ -1,7 +1,81 @@
-﻿.info-row {
+.profile-page {
+  display: grid;
+  gap: 18px;
+}
+
+.profile-grid {
+  align-items: start;
+}
+
+.profile-card {
+  overflow: hidden;
+}
+
+.account-card {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(232, 244, 255, 0.94));
+}
+
+.security-card {
+  min-height: 100%;
+}
+
+.profile-summary {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.avatar-badge {
+  width: 72px;
+  height: 72px;
+  border-radius: 24px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(145deg, #1265cc, #19c98b);
+  color: white;
+  font-family: 'Sora', sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  box-shadow: 0 18px 32px rgba(18, 101, 204, 0.22);
+}
+
+.summary-name {
+  font-family: 'Sora', sans-serif;
+  font-size: 24px;
+  color: var(--brand-blue-strong);
+}
+
+.summary-role {
+  color: var(--text-soft);
+}
+
+.info-list {
+  display: grid;
+  gap: 12px;
+}
+
+.info-row {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 12px;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(23, 137, 255, 0.1);
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.info-row span {
+  color: var(--text-soft);
+}
+
+.info-row strong {
+  color: var(--brand-blue-strong);
+}
+
+.card-description {
+  margin-bottom: 16px;
+  color: var(--text-soft);
 }
 
 .form-grid {
@@ -9,8 +83,50 @@
   gap: 12px;
 }
 
+.danger-zone {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(255, 242, 240, 0.94));
+}
+
+.danger-layout {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.9fr) minmax(0, 1.1fr);
+  gap: 18px;
+  align-items: center;
+}
+
+.danger-title {
+  margin-bottom: 6px;
+  font-family: 'Sora', sans-serif;
+  font-size: 20px;
+  color: #b42318;
+}
+
+.danger-copy {
+  color: #91413d;
+}
+
 .delete-grid {
   display: flex;
   gap: 12px;
   align-items: center;
+}
+
+.danger-zone .mat-mdc-outlined-button.mat-warn:not(:disabled) {
+  border-color: rgba(180, 35, 24, 0.24) !important;
+  background: rgba(180, 35, 24, 0.06);
+  color: #b42318 !important;
+}
+
+.danger-zone .mat-mdc-outlined-button.mat-warn:not(:disabled):hover {
+  background: rgba(180, 35, 24, 0.12);
+}
+
+@media (max-width: 960px) {
+  .danger-layout,
+  .delete-grid,
+  .info-row {
+    grid-template-columns: 1fr;
+    flex-direction: column;
+    align-items: stretch;
+  }
 }

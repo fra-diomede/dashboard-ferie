@@ -10,6 +10,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { AuthService } from '../core/services/auth.service';
 import { Observable } from 'rxjs';
 import { AuthSession } from '../models/auth.model';
+import { BrandLockupComponent } from '../components/brand-lockup/brand-lockup.component';
 
 interface NavItem {
   label: string;
@@ -29,7 +30,8 @@ interface NavItem {
     MatIconModule,
     MatButtonModule,
     MatListModule,
-    MatMenuModule
+    MatMenuModule,
+    BrandLockupComponent
   ],
   templateUrl: './app-shell.component.html',
   styleUrls: ['./app-shell.component.scss']

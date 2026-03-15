@@ -1,26 +1,74 @@
-﻿<div class="page">
-  <div class="page-header">
-    <h1 class="page-title">Profilo</h1>
-  </div>
+<div class="page profile-page">
+  <section class="page-hero">
+    <div class="page-hero-copy">
+      <span class="page-hero-eyebrow">Centro account</span>
+      <h1 class="page-hero-title">Profilo</h1>
+      <p class="page-hero-subtitle">
+        Tieni sotto controllo identita', accessi e sicurezza dell'account con una vista piu' pulita e coerente al nuovo brand.
+      </p>
 
-  <div class="grid grid-2">
-    <mat-card>
+      <div class="page-hero-metrics">
+        <div class="page-hero-metric">
+          <strong>{{ displayName }}</strong>
+          <span>profilo attivo</span>
+        </div>
+        <div class="page-hero-metric">
+          <strong>{{ session?.username }}</strong>
+          <span>username</span>
+        </div>
+        <div class="page-hero-metric">
+          <strong>{{ session?.ruoli?.length || 0 }}</strong>
+          <span>ruoli assegnati</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-hero-art" aria-hidden="true">
+      <div class="hero-visual">
+        <div class="hero-visual-toolbar"></div>
+        <div class="hero-bars">
+          <span class="is-active"></span>
+          <span></span>
+          <span class="is-success"></span>
+          <span class="is-short"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="grid grid-2 profile-grid">
+    <mat-card class="profile-card account-card">
       <div class="card-header">Informazioni account</div>
       <div class="card-body">
-        <div class="info-row">
-          <span>Username</span>
-          <strong>{{ session?.username }}</strong>
+        <div class="profile-summary">
+          <div class="avatar-badge">{{ initials }}</div>
+          <div>
+            <div class="summary-name">{{ displayName }}</div>
+            <div class="summary-role">{{ rolesLabel }}</div>
+          </div>
         </div>
-        <div class="info-row">
-          <span>Ruoli</span>
-          <strong>{{ session?.ruoli?.join(', ') }}</strong>
+
+        <div class="info-list">
+          <div class="info-row">
+            <span>Username</span>
+            <strong>{{ session?.username }}</strong>
+          </div>
+          <div class="info-row">
+            <span>Ruoli</span>
+            <strong>{{ rolesLabel }}</strong>
+          </div>
+          <div class="info-row">
+            <span>Stato</span>
+            <strong>Attivo</strong>
+          </div>
         </div>
       </div>
     </mat-card>
 
-    <mat-card>
+    <mat-card class="profile-card security-card">
       <div class="card-header">Cambia password</div>
       <div class="card-body">
+        <div class="card-description">Aggiorna le credenziali per mantenere l'account protetto e allineato alle policy interne.</div>
         <form [formGroup]="changeForm" (ngSubmit)="changePassword()" class="form-grid">
           <mat-form-field appearance="outline">
             <mat-label>Password attuale</mat-label>
@@ -42,15 +90,21 @@
     </mat-card>
   </div>
 
-  <mat-card style="margin-top: 18px;">
+  <mat-card class="profile-card danger-zone">
     <div class="card-header">Elimina account</div>
     <div class="card-body">
-      <div class="delete-grid">
-        <mat-form-field appearance="outline">
-          <mat-label>Password di conferma</mat-label>
-          <input matInput type="password" [(ngModel)]="deletePassword">
-        </mat-form-field>
-        <button mat-stroked-button color="warn" (click)="deleteAccount()">Elimina account</button>
+      <div class="danger-layout">
+        <div>
+          <div class="danger-title">Zona critica</div>
+          <div class="danger-copy">Questa azione e' irreversibile e chiudera' subito l'accesso alla piattaforma.</div>
+        </div>
+        <div class="delete-grid">
+          <mat-form-field appearance="outline">
+            <mat-label>Password di conferma</mat-label>
+            <input matInput type="password" [(ngModel)]="deletePassword">
+          </mat-form-field>
+          <button mat-stroked-button color="warn" (click)="deleteAccount()">Elimina account</button>
+        </div>
       </div>
     </div>
   </mat-card>

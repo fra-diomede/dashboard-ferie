@@ -49,6 +49,14 @@ export class TeamComponent implements OnInit {
 
   constructor(private teamService: TeamService) {}
 
+  get selectedTeamLabel() {
+    return this.teamName || 'Nessun team';
+  }
+
+  get reportUsersCount() {
+    return Object.keys(this.report?.daysByUser ?? {}).length;
+  }
+
   ngOnInit() {
     if (typeof window !== 'undefined') {
       this.teamName = localStorage.getItem('timeoffly.team') ?? '';

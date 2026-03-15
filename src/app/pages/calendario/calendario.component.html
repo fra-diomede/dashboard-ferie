@@ -1,8 +1,53 @@
-﻿<div class="page">
-  <div class="page-header">
+<div class="page calendario-page">
+  <section class="page-hero calendario-hero">
+    <div class="page-hero-copy">
+      <span class="page-hero-eyebrow">Festivita' annuali</span>
+      <h1 class="page-hero-title">Calendario annuale</h1>
+      <p class="page-hero-subtitle">
+        Visualizza festivita', weekend e mesi chiave con una lettura piu' ordinata, pensata per pianificare assenze e ponti con piu' anticipo.
+      </p>
+
+      <div class="page-hero-metrics">
+        <div class="page-hero-metric">
+          <strong>{{ year }}</strong>
+          <span>anno in vista</span>
+        </div>
+        <div class="page-hero-metric">
+          <strong>{{ country.toUpperCase() }}</strong>
+          <span>country attiva</span>
+        </div>
+        <div class="page-hero-metric">
+          <strong>{{ months.length }}</strong>
+          <span>mesi renderizzati</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-hero-art" aria-hidden="true">
+      <div class="hero-visual">
+        <div class="hero-visual-toolbar"></div>
+        <div class="hero-calendar-grid">
+          <span class="is-active"></span>
+          <span></span>
+          <span class="is-success"></span>
+          <span></span>
+          <span></span>
+          <span class="is-success"></span>
+          <span></span>
+          <span class="is-active"></span>
+          <span></span>
+          <span></span>
+          <span class="is-success"></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="page-header calendario-header">
     <div class="page-title-group">
-      <h1 class="page-title">Calendario annuale</h1>
-      <div class="page-subtitle">Festivi e panoramica per mese</div>
+      <h2 class="section-title">Vista mensile</h2>
+      <div class="page-subtitle">Festivi ufficiali e panoramica per mese.</div>
     </div>
     <div class="filters">
       <mat-form-field appearance="outline">
@@ -68,4 +113,3 @@
     </mat-card>
   </div>
 </div>
-

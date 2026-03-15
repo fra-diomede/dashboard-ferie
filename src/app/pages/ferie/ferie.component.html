@@ -1,6 +1,54 @@
-﻿<div class="page">
-  <div class="page-header">
-    <h1 class="page-title">Gestione ferie</h1>
+<div class="page ferie-page">
+  <section class="page-hero ferie-hero">
+    <div class="page-hero-copy">
+      <span class="page-hero-eyebrow">Pianificazione</span>
+      <h1 class="page-hero-title">Gestione ferie</h1>
+      <p class="page-hero-subtitle">
+        Organizza richieste, filtra lo storico e aggiorna nuove assenze in una vista piu' pulita e piu' vicina all'identita' TimeOffly.
+      </p>
+
+      <div class="page-hero-metrics">
+        <div class="page-hero-metric">
+          <strong>{{ filtered.length }}</strong>
+          <span>richieste visibili</span>
+        </div>
+        <div class="page-hero-metric">
+          <strong>{{ selectedStatus === 'ALL' ? 'Tutti' : selectedStatus }}</strong>
+          <span>stato attivo</span>
+        </div>
+        <div class="page-hero-metric">
+          <strong>{{ editingId ? 'Modifica' : 'Nuova' }}</strong>
+          <span>azione corrente</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-hero-art" aria-hidden="true">
+      <div class="hero-visual">
+        <div class="hero-visual-toolbar"></div>
+        <div class="hero-calendar-grid">
+          <span></span>
+          <span class="is-success"></span>
+          <span></span>
+          <span class="is-active"></span>
+          <span></span>
+          <span></span>
+          <span class="is-success"></span>
+          <span></span>
+          <span class="is-active"></span>
+          <span></span>
+          <span></span>
+          <span class="is-success"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="page-header ferie-header">
+    <div>
+      <h2 class="section-title">Storico e richieste</h2>
+      <div class="section-subtitle">Filtra per stato o anno e gestisci una nuova richiesta senza cambiare pagina.</div>
+    </div>
     <div class="filters">
       <mat-form-field appearance="outline">
         <mat-label>Stato</mat-label>
@@ -17,15 +65,15 @@
     </div>
   </div>
 
-  <div class="grid grid-2">
-    <mat-card>
+  <div class="grid grid-2 ferie-layout">
+    <mat-card class="ferie-card list-card">
       <div class="card-header">Richieste ferie</div>
       <div class="card-body">
         <div class="list" *ngIf="filtered.length; else emptyList">
           <div class="list-item" *ngFor="let item of filtered">
             <div class="item-content" (click)="select(item)">
-              <div class="item-title">{{ item.tipoFerie?.descrizione || 'Ferie' }}</div>
-              <div class="item-sub">{{ item.dataInizio }} → {{ item.dataFine }}</div>
+              <div class="item-title">{{ item.tipoFerie.descrizione || 'Ferie' }}</div>
+              <div class="item-sub">Dal {{ item.dataInizio }} al {{ item.dataFine }}</div>
             </div>
             <div class="item-actions">
               <span class="tag">{{ item.tipoStatoFerie?.descrizione || 'IN_ATTESA' }}</span>
@@ -41,9 +89,10 @@
       </div>
     </mat-card>
 
-    <mat-card>
+    <mat-card class="ferie-card form-card">
       <div class="card-header">{{ editingId ? 'Aggiorna richiesta' : 'Nuova richiesta' }}</div>
       <div class="card-body">
+        <div class="form-intro">Compila il periodo, scegli la tipologia e invia la richiesta in pochi passaggi.</div>
         <form [formGroup]="form" (ngSubmit)="submit()" class="form-grid">
           <mat-form-field appearance="outline">
             <mat-label>Data inizio</mat-label>

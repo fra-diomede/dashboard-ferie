@@ -1,0 +1,25 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="timeoffly-blue" x1="110" y1="82" x2="382" y2="356" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1789FF"/>
+      <stop offset="1" stop-color="#0A3B8D"/>
+    </linearGradient>
+    <linearGradient id="timeoffly-green" x1="154" y1="220" x2="392" y2="446" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1DD7A1"/>
+      <stop offset="1" stop-color="#13B77F"/>
+    </linearGradient>
+    <clipPath id="outer-circle">
+      <circle cx="256" cy="256" r="210"/>
+    </clipPath>
+    <clipPath id="green-slice">
+      <path d="M0 512H512V148L144 512H0Z"/>
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#outer-circle)">
+    <circle cx="256" cy="256" r="210" fill="url(#timeoffly-blue)"/>
+    <circle cx="256" cy="256" r="210" fill="url(#timeoffly-green)" clip-path="url(#green-slice)"/>
+    <circle cx="236" cy="256" r="79" fill="white"/>
+    <ellipse cx="319" cy="184" rx="79" ry="120" transform="rotate(38 319 184)" fill="white"/>
+  </g>
+</svg>

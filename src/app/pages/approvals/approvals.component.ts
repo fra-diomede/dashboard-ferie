@@ -33,6 +33,14 @@ export class ApprovalsComponent {
 
   constructor(private ferieService: FerieService, private notifications: NotificationService) {}
 
+  get selectedTargetLabel() {
+    return this.targetUsername || 'Nessun utente selezionato';
+  }
+
+  get modeLabel() {
+    return this.pendingOnly ? 'Solo richieste in attesa' : 'Tutte le richieste';
+  }
+
   load() {
     if (!this.targetUsername) return;
     this.ferieService.listByMatricola(this.targetUsername).subscribe(data => {

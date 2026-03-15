@@ -1,0 +1,13 @@
+<ng-container [ngSwitch]="variant">
+  <img *ngSwitchCase="'logo'" class="brand-logo-image" src="brand/timeoffly-logo.svg" [attr.alt]="alt">
+
+  <img *ngSwitchCase="'mark'" class="brand-mark-image solo-mark" src="brand/timeoffly-mark.svg" [attr.alt]="alt">
+
+  <div *ngSwitchDefault class="brand-inline">
+    <img class="brand-mark-image" src="brand/timeoffly-mark.svg" alt="">
+    <div class="brand-copy">
+      <span class="brand-wordmark">TimeOffly</span>
+      <span *ngIf="showTagline" class="brand-tagline">Take your time, effortlessly.</span>
+    </div>
+  </div>
+</ng-container>

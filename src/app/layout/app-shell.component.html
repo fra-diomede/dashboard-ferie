@@ -1,12 +1,12 @@
 <mat-sidenav-container class="shell">
   <mat-sidenav mode="side" opened class="side">
     <div class="brand">
-      <div class="logo">Timeoffly</div>
-      <span class="tag">Enterprise</span>
+      <app-brand-lockup size="sm"></app-brand-lockup>
+      <span class="suite-badge">Suite TimeOffly</span>
     </div>
 
     <div class="nav-section">
-      <div class="nav-section-title">Funzionalità</div>
+      <div class="nav-section-title">Funzionalita'</div>
       <mat-nav-list class="nav-list">
         <ng-container *ngFor="let item of navItems">
           <a mat-list-item
@@ -37,7 +37,7 @@
   <mat-sidenav-content class="content">
     <mat-toolbar class="topbar" color="primary">
       <div class="topbar-left">
-        <div class="breadcrumbs">Gestione ferie • Dashboard professionale</div>
+        <div class="breadcrumbs">Gestione ferie e permessi</div>
       </div>
 
       <span class="spacer"></span>
@@ -66,4 +66,3 @@
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
-

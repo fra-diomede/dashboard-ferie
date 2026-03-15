@@ -1,0 +1,28 @@
+<svg width="900" height="220" viewBox="0 0 900 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="timeoffly-blue" x1="26" y1="18" x2="152" y2="144" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1789FF"/>
+      <stop offset="1" stop-color="#0A3B8D"/>
+    </linearGradient>
+    <linearGradient id="timeoffly-green" x1="58" y1="98" x2="166" y2="196" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1DD7A1"/>
+      <stop offset="1" stop-color="#13B77F"/>
+    </linearGradient>
+    <clipPath id="outer-circle">
+      <circle cx="92" cy="110" r="76"/>
+    </clipPath>
+    <clipPath id="green-slice">
+      <path d="M0 220H220V48L48 220H0Z"/>
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#outer-circle)">
+    <circle cx="92" cy="110" r="76" fill="url(#timeoffly-blue)"/>
+    <circle cx="92" cy="110" r="76" fill="url(#timeoffly-green)" clip-path="url(#green-slice)"/>
+    <circle cx="84" cy="110" r="30" fill="white"/>
+    <ellipse cx="114" cy="82" rx="31" ry="48" transform="rotate(38 114 82)" fill="white"/>
+  </g>
+
+  <text x="178" y="104" fill="#0A357B" font-family="Sora, 'Segoe UI', sans-serif" font-size="86" font-weight="600">TimeOffly</text>
+  <text x="182" y="160" fill="#123A76" font-family="'Source Sans 3', 'Segoe UI', sans-serif" font-size="36" font-weight="500">Take your time, effortlessly.</text>
+</svg>

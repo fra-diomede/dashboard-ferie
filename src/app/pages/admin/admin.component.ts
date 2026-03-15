@@ -41,6 +41,14 @@ export class AdminComponent implements OnInit {
 
   constructor(private adminService: AdminService, private notifications: NotificationService) {}
 
+  get activeUsersCount() {
+    return this.users.filter(user => user.attivo).length;
+  }
+
+  get inactiveUsersCount() {
+    return this.users.length - this.activeUsersCount;
+  }
+
   ngOnInit() {
     this.loadUsers();
   }

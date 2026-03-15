@@ -51,7 +51,7 @@ export class DashboardComponent implements OnInit {
   formatDate(value?: string) {
     if (!value) return '-';
     const parsed = parseItalianDate(value);
-    return parsed ? parsed.format('DD/MM/YYYY') : toItalianDate(value);
+    return parsed ? toItalianDate(parsed) : toItalianDate(value);
   }
 
   private mapBreakdown(data: DashboardDto) {
@@ -65,13 +65,9 @@ export class DashboardComponent implements OnInit {
   private setWelcomeName() {
     const session = this.authService.getSession();
     const nome = session?.nome?.trim();
-    if (nome) {
-      this.welcomeName = nome;
-      return;
-    }
     const cognome = session?.cognome?.trim();
-    if (cognome) {
-      this.welcomeName = cognome;
+    if (nome && cognome) {
+      this.welcomeName = `${nome} ${cognome}`;
       return;
     }
     this.welcomeName = session?.username ?? '';

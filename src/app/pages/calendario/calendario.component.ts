@@ -150,7 +150,7 @@ export class CalendarioComponent implements OnInit {
 
   private parseDate(value: string): Date | null {
     const parsed = parseItalianDate(value);
-    if (parsed) return parsed.toDate();
+    if (parsed) return parsed;
     const raw = new Date(value);
     return Number.isNaN(raw.getTime()) ? null : raw;
   }

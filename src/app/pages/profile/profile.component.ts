@@ -46,6 +46,26 @@ export class ProfileComponent {
     });
   }
 
+  get displayName() {
+    const nome = this.session?.nome?.trim() ?? '';
+    const cognome = this.session?.cognome?.trim() ?? '';
+    const fullName = [nome, cognome].filter(Boolean).join(' ');
+    return fullName || this.session?.username || 'Profilo utente';
+  }
+
+  get initials() {
+    return this.displayName
+      .split(' ')
+      .filter(Boolean)
+      .slice(0, 2)
+      .map(part => part[0]?.toUpperCase() ?? '')
+      .join('');
+  }
+
+  get rolesLabel() {
+    return this.session?.ruoli?.join(', ') || 'Utente';
+  }
+
   changePassword() {
     if (!this.session?.username || this.changeForm.invalid) return;
     const { currentPassword, newPassword, confirmNewPassword } = this.changeForm.getRawValue();

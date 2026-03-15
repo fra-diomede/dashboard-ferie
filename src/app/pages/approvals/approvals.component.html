@@ -1,6 +1,47 @@
-﻿<div class="page">
-  <div class="page-header">
-    <h1 class="page-title">Approvazioni</h1>
+<div class="page approvals-page">
+  <section class="page-hero">
+    <div class="page-hero-copy">
+      <span class="page-hero-eyebrow">Flusso approvazioni</span>
+      <h1 class="page-hero-title">Approvazioni</h1>
+      <p class="page-hero-subtitle">
+        Gestisci la coda richieste con una lettura piu' chiara: utente, stato, motivazione e azioni restano nello stesso flusso visivo.
+      </p>
+
+      <div class="page-hero-metrics">
+        <div class="page-hero-metric">
+          <strong>{{ selectedTargetLabel }}</strong>
+          <span>utente in revisione</span>
+        </div>
+        <div class="page-hero-metric">
+          <strong>{{ ferie.length }}</strong>
+          <span>richieste caricate</span>
+        </div>
+        <div class="page-hero-metric">
+          <strong>{{ pendingOnly ? 'In attesa' : 'Complete' }}</strong>
+          <span>{{ modeLabel }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-hero-art" aria-hidden="true">
+      <div class="hero-visual">
+        <div class="hero-visual-toolbar"></div>
+        <div class="hero-bars">
+          <span class="is-active"></span>
+          <span></span>
+          <span class="is-success"></span>
+          <span></span>
+          <span class="is-short"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="page-header approvals-header">
+    <div>
+      <h2 class="section-title">Coda approvazioni</h2>
+      <div class="section-subtitle">Filtra per username e approva o rifiuta senza perdere il contesto della richiesta.</div>
+    </div>
     <div class="filters">
       <mat-form-field appearance="outline">
         <mat-label>Username</mat-label>
@@ -11,18 +52,25 @@
     </div>
   </div>
 
-  <mat-card>
+  <mat-card class="approvals-card">
     <div class="card-header">Richieste ferie</div>
     <div class="card-body">
-      <div class="list" *ngIf="ferie.length; else empty">
+      <div *ngIf="!targetUsername" class="info-banner">
+        Inserisci uno username per aprire la coda approvazioni di un collaboratore.
+      </div>
+
+      <div class="list" *ngIf="targetUsername && ferie.length; else emptyState">
         <div class="list-item" *ngFor="let item of ferie">
           <div class="item-main">
-            <div class="item-title">{{ item.tipoFerie?.descrizione || 'Ferie' }}</div>
-            <div class="item-sub">{{ item.dataInizio }} → {{ item.dataFine }}</div>
-            <div class="item-sub">Stato: {{ item.tipoStatoFerie?.descrizione || 'IN_ATTESA' }}</div>
+            <div class="item-title">{{ item.tipoFerie.descrizione || 'Ferie' }}</div>
+            <div class="meta-row">
+              <span class="meta-pill">Dal {{ item.dataInizio }} al {{ item.dataFine }}</span>
+              <span class="meta-pill muted">{{ item.tipoStatoFerie?.descrizione || 'IN_ATTESA' }}</span>
+            </div>
+            <div class="item-sub">Richiesta pronta per approvazione o rifiuto con motivazione.</div>
           </div>
           <div class="item-actions">
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="outline" class="reject-field">
               <mat-label>Motivo rifiuto</mat-label>
               <input matInput [(ngModel)]="rejectReason[item.id || 0]">
             </mat-form-field>
@@ -33,8 +81,9 @@
           </div>
         </div>
       </div>
-      <ng-template #empty>
-        <div class="empty">Nessuna richiesta per l'utente selezionato.</div>
+
+      <ng-template #emptyState>
+        <div class="empty" *ngIf="targetUsername">Nessuna richiesta per l'utente selezionato.</div>
       </ng-template>
     </div>
   </mat-card>

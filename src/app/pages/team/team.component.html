@@ -1,6 +1,54 @@
-﻿<div class="page">
-  <div class="page-header">
-    <h1 class="page-title">Insight team</h1>
+<div class="page team-page">
+  <section class="page-hero">
+    <div class="page-hero-copy">
+      <span class="page-hero-eyebrow">Panoramica team</span>
+      <h1 class="page-hero-title">Panoramica team</h1>
+      <p class="page-hero-subtitle">
+        Monitora assenze, disponibilita' e trend mensili con una vista piu' ordinata, piu' leggibile e vicina al nuovo stile TimeOffly.
+      </p>
+
+      <div class="page-hero-metrics">
+        <div class="page-hero-metric">
+          <strong>{{ selectedTeamLabel }}</strong>
+          <span>Team selezionato</span>
+        </div>
+        <div class="page-hero-metric">
+          <strong>{{ calendar.length }}</strong>
+          <span>assenze nel calendario</span>
+        </div>
+        <div class="page-hero-metric">
+          <strong>{{ reportUsersCount }}</strong>
+          <span>utenti coperti nel report</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-hero-art" aria-hidden="true">
+      <div class="hero-visual">
+        <div class="hero-visual-toolbar"></div>
+        <div class="hero-calendar-grid">
+          <span></span>
+          <span class="is-active"></span>
+          <span></span>
+          <span class="is-success"></span>
+          <span></span>
+          <span></span>
+          <span class="is-success"></span>
+          <span></span>
+          <span class="is-active"></span>
+          <span></span>
+          <span></span>
+          <span class="is-success"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="page-header team-header">
+    <div>
+      <h2 class="section-title">Area operativa</h2>
+      <div class="section-subtitle">Imposta il team di riferimento e aggiorna le analisi in tempo reale.</div>
+    </div>
     <div class="filters">
       <mat-form-field appearance="outline">
         <mat-label>Team</mat-label>
@@ -10,8 +58,8 @@
     </div>
   </div>
 
-  <div class="grid grid-2">
-    <mat-card>
+  <div class="grid grid-2 team-sections">
+    <mat-card class="team-card">
       <div class="card-header">Calendario team</div>
       <div class="card-body">
         <div class="controls">
@@ -26,47 +74,51 @@
           <mat-slide-toggle [(ngModel)]="approvedOnly">Solo approvate</mat-slide-toggle>
         </div>
 
-        <table mat-table [dataSource]="calendar" class="calendar-table">
-          <ng-container matColumnDef="username">
-            <th mat-header-cell *matHeaderCellDef>Utente</th>
-            <td mat-cell *matCellDef="let row">{{ row.username }}</td>
-          </ng-container>
-          <ng-container matColumnDef="start">
-            <th mat-header-cell *matHeaderCellDef>Inizio</th>
-            <td mat-cell *matCellDef="let row">{{ row.start }}</td>
-          </ng-container>
-          <ng-container matColumnDef="end">
-            <th mat-header-cell *matHeaderCellDef>Fine</th>
-            <td mat-cell *matCellDef="let row">{{ row.end }}</td>
-          </ng-container>
-          <ng-container matColumnDef="tipo">
-            <th mat-header-cell *matHeaderCellDef>Tipo</th>
-            <td mat-cell *matCellDef="let row">{{ row.tipoFerie }}</td>
-          </ng-container>
-          <ng-container matColumnDef="stato">
-            <th mat-header-cell *matHeaderCellDef>Stato</th>
-            <td mat-cell *matCellDef="let row">{{ row.stato }}</td>
-          </ng-container>
+        <div class="table-wrap">
+          <table mat-table [dataSource]="calendar" class="calendar-table">
+            <ng-container matColumnDef="username">
+              <th mat-header-cell *matHeaderCellDef>Utente</th>
+              <td mat-cell *matCellDef="let row">{{ row.username }}</td>
+            </ng-container>
+            <ng-container matColumnDef="start">
+              <th mat-header-cell *matHeaderCellDef>Inizio</th>
+              <td mat-cell *matCellDef="let row">{{ row.start }}</td>
+            </ng-container>
+            <ng-container matColumnDef="end">
+              <th mat-header-cell *matHeaderCellDef>Fine</th>
+              <td mat-cell *matCellDef="let row">{{ row.end }}</td>
+            </ng-container>
+            <ng-container matColumnDef="tipo">
+              <th mat-header-cell *matHeaderCellDef>Tipo</th>
+              <td mat-cell *matCellDef="let row">{{ row.tipoFerie }}</td>
+            </ng-container>
+            <ng-container matColumnDef="stato">
+              <th mat-header-cell *matHeaderCellDef>Stato</th>
+              <td mat-cell *matCellDef="let row">{{ row.stato }}</td>
+            </ng-container>
 
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-        </table>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table>
+        </div>
       </div>
     </mat-card>
 
-    <mat-card>
-      <div class="card-header">Who is off</div>
+    <mat-card class="team-card accent-card">
+      <div class="card-header">Chi e' fuori oggi</div>
       <div class="card-body">
-        <div class="controls">
+        <div class="controls compact-controls">
           <mat-form-field appearance="outline">
             <mat-label>Data</mat-label>
             <input matInput type="date" [(ngModel)]="whoIsOffDate">
           </mat-form-field>
           <button mat-stroked-button (click)="loadWhoIsOff()">Verifica</button>
         </div>
+
         <div class="list" *ngIf="whoIsOffUsers.length; else noOff">
           <div class="list-item" *ngFor="let user of whoIsOffUsers">
-            {{ user }}
+            <strong>{{ user }}</strong>
+            <span>Assente nella data selezionata</span>
           </div>
         </div>
         <ng-template #noOff>
@@ -76,11 +128,11 @@
     </mat-card>
   </div>
 
-  <div class="grid grid-2" style="margin-top: 18px;">
-    <mat-card>
+  <div class="grid grid-2 team-sections">
+    <mat-card class="team-card">
       <div class="card-header">Report mensile</div>
       <div class="card-body">
-        <div class="controls">
+        <div class="controls compact-controls">
           <mat-form-field appearance="outline">
             <mat-label>Anno</mat-label>
             <input matInput type="number" [(ngModel)]="reportYear">
@@ -106,18 +158,20 @@
             <div class="kpi-value">{{ report.rejectedRequests }}</div>
           </div>
         </div>
-        <div class="list" *ngIf="report?.daysByUser as daysByUser">
+
+        <div class="list report-list" *ngIf="report?.daysByUser as daysByUser">
           <div class="list-item" *ngFor="let entry of daysByUser | keyvalue">
-            {{ entry.key }} · {{ entry.value }} giorni
+            <strong>{{ entry.key }}</strong>
+            <span>{{ entry.value }} giorni pianificati</span>
           </div>
         </div>
       </div>
     </mat-card>
 
-    <mat-card>
-      <div class="card-header">Forecast utente</div>
+    <mat-card class="team-card accent-card">
+      <div class="card-header">Previsione utente</div>
       <div class="card-body">
-        <div class="controls">
+        <div class="controls compact-controls">
           <mat-form-field appearance="outline">
             <mat-label>Username</mat-label>
             <input matInput [(ngModel)]="forecastUsername">
@@ -129,7 +183,7 @@
           <button mat-stroked-button (click)="loadForecast()">Calcola</button>
         </div>
 
-        <div *ngIf="forecast" class="report-grid">
+        <div *ngIf="forecast" class="report-grid forecast-grid">
           <div class="kpi">
             <div class="kpi-label">Entitlement</div>
             <div class="kpi-value">{{ forecast.totalEntitlement }}</div>
@@ -143,7 +197,8 @@
             <div class="kpi-value">{{ forecast.projectedResidual }}</div>
           </div>
         </div>
-        <div *ngIf="forecast?.riskUnusedDays" class="risk-tag">Rischio giorni non utilizzati</div>
+
+        <div *ngIf="forecast?.riskUnusedDays" class="risk-tag">Attenzione: rischio giorni non utilizzati a fine anno</div>
       </div>
     </mat-card>
   </div>

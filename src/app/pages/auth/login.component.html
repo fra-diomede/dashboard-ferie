@@ -1,9 +1,13 @@
-﻿<div class="auth-shell">
+<div class="auth-shell">
   <div class="auth-panel">
-    <div class="brand">Timeoffly</div>
+    <div class="brand">
+      <app-brand-lockup variant="logo" size="lg"></app-brand-lockup>
+    </div>
+
     <mat-card>
-      <mat-card-title>Accesso alla dashboard</mat-card-title>
-      <mat-card-subtitle>Gestisci ferie, team e insight in un unico posto.</mat-card-subtitle>
+      <span class="eyebrow">Bentornato</span>
+      <mat-card-title>Accedi alla tua area</mat-card-title>
+      <mat-card-subtitle>Gestisci ferie, permessi e approvazioni con un flusso piu' chiaro.</mat-card-subtitle>
 
       <form [formGroup]="form" (ngSubmit)="submit()">
         <mat-form-field appearance="outline">
@@ -30,8 +34,30 @@
 
   <div class="auth-aside">
     <div class="aside-card">
-      <h2>Una regia unica per ferie e approvazioni</h2>
-      <p>Monitoraggio KPI, workflow di approvazione e calendario condiviso con grafici sempre aggiornati.</p>
+      <div class="aside-badge">Suite TimeOffly</div>
+      <h2>Take your time, effortlessly</h2>
+      <p>Gestisci ferie e permessi in modo semplice e fluido, con calendario condiviso, approvazioni smart e insight sempre aggiornati.</p>
+
+      <div class="mockup-card" aria-hidden="true">
+        <div class="mockup-toolbar"></div>
+        <div class="calendar-mini">
+          <div class="calendar-cell"></div>
+          <div class="calendar-cell"></div>
+          <div class="calendar-cell success"></div>
+          <div class="calendar-cell"></div>
+          <div class="calendar-cell active"></div>
+          <div class="calendar-cell"></div>
+          <div class="calendar-cell"></div>
+          <div class="calendar-cell"></div>
+          <div class="calendar-cell success"></div>
+          <div class="calendar-cell"></div>
+          <div class="calendar-cell"></div>
+          <div class="calendar-cell"></div>
+          <div class="calendar-cell success"></div>
+          <div class="calendar-cell"></div>
+        </div>
+      </div>
+
       <div class="aside-grid">
         <div>
           <div class="kpi-value">+18%</div>
@@ -39,7 +65,7 @@
         </div>
         <div>
           <div class="kpi-value">3x</div>
-          <div class="kpi-label">Visibilita ferie</div>
+          <div class="kpi-label">Visibilita' ferie</div>
         </div>
       </div>
     </div>

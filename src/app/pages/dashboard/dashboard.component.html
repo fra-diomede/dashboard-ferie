@@ -1,36 +1,83 @@
-﻿<div class="page fade-in" *ngIf="data as dashboard">
-  <div class="page-header">
+<div class="page fade-in dashboard-page" *ngIf="data as dashboard">
+  <section class="page-hero dashboard-hero">
+    <div class="page-hero-copy">
+      <span class="page-hero-eyebrow">Area personale</span>
+      <h1 class="page-hero-title">Dashboard personale</h1>
+      <p class="page-hero-subtitle">
+        <ng-container *ngIf="welcomeName; else genericWelcome">Benvenuto {{ welcomeName }}.</ng-container>
+        <ng-template #genericWelcome>Benvenuto.</ng-template>
+        Qui trovi ferie residue, trend annuale e suggerimenti smart in un solo colpo d'occhio.
+      </p>
+
+      <div class="page-hero-metrics">
+        <div class="page-hero-metric">
+          <strong>{{ dashboard.statistiche.percentualeUsate }}%</strong>
+          <span>utilizzo annuale</span>
+        </div>
+        <div class="page-hero-metric">
+          <strong>{{ dashboard.giorniEffettiviLavorati }}</strong>
+          <span>giorni lavorati</span>
+        </div>
+        <div class="page-hero-metric">
+          <strong>{{ breakdown.length }}</strong>
+          <span>tipologie monitorate</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-hero-art" aria-hidden="true">
+      <div class="hero-visual">
+        <div class="hero-visual-toolbar"></div>
+        <div class="hero-calendar-grid">
+          <span></span>
+          <span class="is-active"></span>
+          <span></span>
+          <span class="is-success"></span>
+          <span></span>
+          <span></span>
+          <span class="is-success"></span>
+          <span></span>
+          <span class="is-active"></span>
+          <span></span>
+          <span></span>
+          <span class="is-success"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="page-header dashboard-header">
     <div class="page-title-group">
-      <h1 class="page-title">Dashboard personale</h1>
-      <div class="page-subtitle" *ngIf="welcomeName">Benvenuto {{ welcomeName }} nella tua dashboard</div>
+      <h2 class="section-title">Panoramica annuale</h2>
+      <div class="page-subtitle">Numeri chiave e avanzamento ferie sempre aggiornati.</div>
     </div>
     <button mat-stroked-button color="primary" (click)="load()">Aggiorna</button>
   </div>
 
-  <div class="grid grid-3 stagger">
+  <div class="grid grid-3 stagger dashboard-kpis">
     <div class="kpi">
       <div class="kpi-label">Ferie totali</div>
-      <div class="kpi-value">{{ dashboard.statistiche?.totali ?? 0 }}</div>
+      <div class="kpi-value">{{ dashboard.statistiche.totali }}</div>
     </div>
     <div class="kpi">
       <div class="kpi-label">Ferie godute</div>
-      <div class="kpi-value">{{ dashboard.statistiche?.godute ?? 0 }}</div>
+      <div class="kpi-value">{{ dashboard.statistiche.godute }}</div>
     </div>
     <div class="kpi">
       <div class="kpi-label">Residue</div>
-      <div class="kpi-value">{{ dashboard.statistiche?.residue ?? 0 }}</div>
+      <div class="kpi-value">{{ dashboard.statistiche.residue }}</div>
     </div>
   </div>
 
-  <div class="grid grid-2" style="margin-top: 18px;">
-    <mat-card>
+  <div class="grid grid-2 dashboard-sections">
+    <mat-card class="insight-card">
       <div class="card-header">Utilizzo annuale</div>
       <div class="card-body">
         <div class="metric-row">
           <span>Percentuale usata</span>
-          <strong>{{ dashboard.statistiche?.percentualeUsate ?? 0 }}%</strong>
+          <strong>{{ dashboard.statistiche.percentualeUsate }}%</strong>
         </div>
-        <mat-progress-bar mode="determinate" [value]="dashboard.statistiche?.percentualeUsate ?? 0"></mat-progress-bar>
+        <mat-progress-bar mode="determinate" [value]="dashboard.statistiche.percentualeUsate"></mat-progress-bar>
         <div class="metric-row">
           <span>Giorni lavorabili</span>
           <strong>{{ dashboard.giorniLavorabiliAnno }}</strong>
@@ -42,7 +89,7 @@
       </div>
     </mat-card>
 
-    <mat-card>
+    <mat-card class="insight-card accent-card">
       <div class="card-header">Residuo ferie</div>
       <div class="card-body" *ngIf="dashboard.residuoFerie as residuo">
         <div class="metric-row">
@@ -65,15 +112,15 @@
     </mat-card>
   </div>
 
-  <div class="grid grid-2" style="margin-top: 18px;">
-    <mat-card>
+  <div class="grid grid-2 dashboard-sections">
+    <mat-card class="insight-card">
       <div class="card-header">Ferie in arrivo</div>
       <div class="card-body">
         <div class="list" *ngIf="dashboard.upcomingFerie?.length; else noFerie">
           <div class="list-item" *ngFor="let ferie of dashboard.upcomingFerie">
             <div>
-              <div class="item-title">{{ ferie.tipoFerie?.descrizione || 'Ferie' }}</div>
-              <div class="item-sub">{{ formatDate(ferie.dataInizio) }} -> {{ formatDate(ferie.dataFine) }}</div>
+              <div class="item-title">{{ ferie.tipoFerie.descrizione || 'Ferie' }}</div>
+              <div class="item-sub">Dal {{ formatDate(ferie.dataInizio) }} al {{ formatDate(ferie.dataFine) }}</div>
             </div>
             <span class="tag">{{ ferie.tipoStatoFerie?.descrizione || 'In revisione' }}</span>
           </div>
@@ -84,13 +131,13 @@
       </div>
     </mat-card>
 
-    <mat-card>
+    <mat-card class="insight-card accent-card">
       <div class="card-header">Suggerimenti smart</div>
       <div class="card-body">
         <div class="list" *ngIf="dashboard.suggestions?.length; else noSuggestions">
           <div class="list-item" *ngFor="let s of dashboard.suggestions">
             <div>
-              <div class="item-title">{{ formatDate(s.start) }} -> {{ formatDate(s.end) }}</div>
+              <div class="item-title">Dal {{ formatDate(s.start) }} al {{ formatDate(s.end) }}</div>
               <div class="item-sub">{{ s.reason }}</div>
             </div>
             <span class="tag">Score {{ s.score | number: '1.0-0' }}</span>
@@ -103,7 +150,7 @@
     </mat-card>
   </div>
 
-  <mat-card style="margin-top: 18px;" *ngIf="breakdown.length">
+  <mat-card class="breakdown-card" *ngIf="breakdown.length">
     <div class="card-header">Breakdown per tipologia</div>
     <div class="card-body">
       <div class="breakdown">
@@ -121,6 +168,3 @@
     <div class="card-body">Caricamento dashboard in corso...</div>
   </mat-card>
 </div>
-
-
-

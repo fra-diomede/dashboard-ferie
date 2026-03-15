@@ -9,6 +9,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '../../core/services/auth.service';
 import { NotificationService } from '../../core/services/notification.service';
+import { BrandLockupComponent } from '../../components/brand-lockup/brand-lockup.component';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,8 @@ import { NotificationService } from '../../core/services/notification.service';
     MatInputModule,
     MatButtonModule,
     MatCardModule,
-    MatIconModule
+    MatIconModule,
+    BrandLockupComponent
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']

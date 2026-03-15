@@ -1,9 +1,13 @@
-﻿<div class="auth-shell">
+<div class="auth-shell">
   <div class="auth-panel">
-    <div class="brand">Timeoffly</div>
+    <div class="brand">
+      <app-brand-lockup variant="logo" size="lg"></app-brand-lockup>
+    </div>
+
     <mat-card>
-      <mat-card-title>Crea il tuo account</mat-card-title>
-      <mat-card-subtitle>Inizia a gestire le ferie con precisione.</mat-card-subtitle>
+      <span class="eyebrow">Nuovo account</span>
+      <mat-card-title>Crea il tuo profilo</mat-card-title>
+      <mat-card-subtitle>Inizia a gestire ferie e permessi con una UI piu' chiara e ordinata.</mat-card-subtitle>
 
       <form [formGroup]="form" (ngSubmit)="submit()">
         <mat-form-field appearance="outline">
@@ -33,12 +37,12 @@
 
         <mat-form-field appearance="outline">
           <mat-label>Ferie annue</mat-label>
-          <input matInput type="number" min="0" step="1" inputmode="numeric" formControlName="ferieAnnue" placeholder="Es. 26">
+          <input matInput type="number" min="0" step="1" inputmode="numeric" formControlName="giorniTotali" placeholder="Es. 26">
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Ore permessi annue</mat-label>
-          <input matInput type="number" min="0" step="1" inputmode="numeric" formControlName="permessiAnnueOre" placeholder="Es. 32">
+          <input matInput type="number" min="0" step="1" inputmode="numeric" formControlName="oreTotali" placeholder="Es. 32">
         </mat-form-field>
 
         <mat-form-field appearance="outline">
@@ -52,7 +56,7 @@
       </form>
 
       <div class="auth-footer">
-        <span>Hai già un account?</span>
+        <span>Hai gia' un account?</span>
         <a routerLink="/auth/login">Accedi</a>
       </div>
     </mat-card>
@@ -60,8 +64,30 @@
 
   <div class="auth-aside">
     <div class="aside-card">
-      <h2>Insight immediati per HR e manager</h2>
-      <p>Dashboard complete, notifiche di approvazione e report mensili per ogni team.</p>
+      <div class="aside-badge">Onboarding guidato</div>
+      <h2>Porta ordine nella gestione del tempo</h2>
+      <p>Dashboard complete, workflow di approvazione e report mensili per HR, manager e dipendenti in un solo spazio.</p>
+
+      <div class="mockup-card" aria-hidden="true">
+        <div class="mockup-toolbar"></div>
+        <div class="calendar-mini">
+          <div class="calendar-cell active"></div>
+          <div class="calendar-cell"></div>
+          <div class="calendar-cell"></div>
+          <div class="calendar-cell success"></div>
+          <div class="calendar-cell"></div>
+          <div class="calendar-cell"></div>
+          <div class="calendar-cell active"></div>
+          <div class="calendar-cell"></div>
+          <div class="calendar-cell"></div>
+          <div class="calendar-cell success"></div>
+          <div class="calendar-cell"></div>
+          <div class="calendar-cell"></div>
+          <div class="calendar-cell"></div>
+          <div class="calendar-cell success"></div>
+        </div>
+      </div>
+
       <div class="aside-grid">
         <div>
           <div class="kpi-value">24/7</div>

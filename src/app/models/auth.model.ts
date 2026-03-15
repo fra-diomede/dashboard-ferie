@@ -21,8 +21,8 @@ export interface RegisterRequest {
   nome: string;
   cognome: string;
   contratto: string;
-  ferieAnnue: number;
-  permessiAnnueOre: number;
+  giorniTotali: number;
+  oreTotali: number;
   ruoli?: string[];
 }
 
