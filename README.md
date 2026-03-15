@@ -1,59 +1,206 @@
-# DashboardFerie
+# TimeOffly Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.3.
+<p align="center">
+  <img src="public/brand/timeoffly-logo.svg" alt="TimeOffly" width="360">
+</p>
 
-## Development server
+<p align="center">
+  Suite web per la gestione di ferie e permessi, progettata per dipendenti, manager e amministratori.
+</p>
 
-To start a local development server, run:
+<p align="center">
+  <strong>Angular 19</strong> | <strong>SSR Ready</strong> | <strong>Angular Material</strong> | <strong>SCSS</strong>
+</p>
+
+## Panoramica
+
+TimeOffly e' un frontend Angular standalone per la gestione di ferie, permessi e approvazioni.
+L'applicazione offre un'esperienza moderna e brandizzata, con accessi differenziati per ruolo e un flusso completo che copre:
+
+- autenticazione e registrazione utenti
+- dashboard con KPI e overview operativa
+- richiesta e monitoraggio ferie
+- calendario festivita' e pianificazione
+- aree dedicate a team, approvazioni, profilo e amministrazione
+
+Il progetto e' predisposto per integrazione con backend REST e supporta SSR, lazy loading e gestione token con refresh automatico.
+
+## Funzionalita' principali
+
+- Autenticazione con JWT, refresh token e redirect protetti
+- Routing per ruolo con guard dedicate per `MANAGER` e `ADMIN`
+- Dashboard con metriche, riepiloghi e componenti visuali
+- Gestione ferie con filtri, lista richieste, form e widget dedicati
+- Calendario annuale per festivita' e pianificazione assenze
+- Workspace manager per team e approvazioni
+- Area admin per controllo operativo e supervisione
+- Profilo utente con dati account e preferenze
+- Design system TimeOffly con palette dedicata, logo condiviso e favicon custom
+- Ottimizzazione bundle tramite lazy loading della shell applicativa
+
+## Stack tecnico
+
+- Framework: `Angular 19`
+- UI: `Angular Material`, `CDK`, `SCSS`
+- Grafici: `Chart.js`, `ng2-charts`
+- Date utilities: `date-fns`
+- Rendering: `Angular SSR`
+- HTTP e stato sessione: `HttpClient`, interceptor custom, `RxJS`
+- Server SSR: `Express`
+
+## Requisiti
+
+- `Node.js` in versione LTS consigliata
+- `npm` installato
+
+## Avvio rapido
+
+1. Installa le dipendenze:
 
 ```bash
-ng serve
+npm install
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+2. Verifica la configurazione API nei file ambiente:
 
-## Code scaffolding
+- `src/environments/environment.ts`
+- `src/environments/environment.prod.ts`
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+3. Avvia il progetto in locale:
 
 ```bash
-ng generate component component-name
+npm start
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+4. Apri il browser su `http://localhost:4200/`.
+
+## Configurazione ambienti
+
+L'app legge il backend base URL dai file environment.
+
+### Sviluppo
+
+```ts
+export const environment = {
+  production: false,
+  apiBaseUrl: 'http://localhost:8081/timeoffly-app'
+};
+```
+
+### Produzione
+
+```ts
+export const environment = {
+  production: true,
+  apiBaseUrl: 'https://app.timeoffly.com/timeoffly-app'
+};
+```
+
+Se il backend cambia, e' sufficiente aggiornare `apiBaseUrl` nel file ambiente corretto.
+
+## Script disponibili
+
+| Comando | Descrizione |
+| --- | --- |
+| `npm start` | Avvia il dev server Angular |
+| `npm run build` | Genera la build production con SSR |
+| `npm run watch` | Build in watch mode per sviluppo |
+| `npm test` | Esegue i test unitari con Karma/Jasmine |
+| `npm run serve:ssr:dashboard-ferie` | Avvia il server SSR dalla build generata |
+
+## Architettura del progetto
+
+```text
+src/
+  app/
+    components/      Componenti UI riusabili
+    core/            Guard, interceptor, servizi condivisi, utility
+    layout/          Shell applicativa e struttura navigazione
+    models/          Contratti TypeScript e DTO
+    pages/           Pagine principali per area funzionale
+    app.config.ts    Provider globali e configurazione Angular
+    app.routes.ts    Routing lazy-loaded e protezione accessi
+  environments/      Configurazioni sviluppo e produzione
+  styles.scss        Token globali, tema e layer visuale
+public/
+  brand/             Asset TimeOffly: logo e mark SVG
+```
+
+## Routing e permessi
+
+| Route | Accesso | Descrizione |
+| --- | --- | --- |
+| `/auth/login` | Pubblico | Accesso utente |
+| `/auth/register` | Pubblico | Registrazione nuovo utente |
+| `/dashboard` | Autenticato | Panoramica personale |
+| `/ferie` | Autenticato | Gestione ferie e permessi |
+| `/calendario` | Autenticato | Calendario annuale |
+| `/team` | `MANAGER`, `ADMIN` | Vista team e insight operativi |
+| `/approvals` | `MANAGER`, `ADMIN` | Flusso approvazioni |
+| `/admin` | `ADMIN` | Controllo amministrativo |
+| `/profilo` | Autenticato | Dati account e preferenze |
+
+## Sicurezza e integrazione API
+
+Il frontend adotta una pipeline HTTP con responsabilita' chiare:
+
+- `AuthInterceptor`: allega il token alle richieste protette
+- `RefreshInterceptor`: rinnova il token su `401` quando possibile
+- `ErrorInterceptor`: centralizza la gestione errori applicativi
+- `AuthGuard`: blocca l'accesso alle aree private
+- `RoleGuard`: abilita le viste riservate in base al ruolo
+
+Questo rende l'integrazione con il backend piu' pulita e aiuta a mantenere il comportamento consistente lungo tutta la navigazione.
+
+## Build e deploy
+
+Per generare l'output production:
 
 ```bash
-ng generate --help
+npm run build
 ```
 
-## Building
+L'artefatto finale viene scritto in:
 
-To build the project run:
+```text
+dist/dashboard-ferie
+```
+
+Per eseguire la versione SSR dopo la build:
 
 ```bash
-ng build
+npm run serve:ssr:dashboard-ferie
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Qualita' del codice
 
-## Running unit tests
+- Componenti standalone e lazy-loaded
+- Theme e branding centralizzati
+- Utility date condivise
+- Struttura separata per pagine, core services e componenti riusabili
+- Test unitari predisposti con Jasmine e Karma
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## Branding
 
-```bash
-ng test
-```
+Il progetto include il sistema visuale TimeOffly:
 
-## Running end-to-end tests
+- logo principale in `public/brand/timeoffly-logo.svg`
+- mark/favicon in `public/brand/timeoffly-mark.svg`
+- lockup riusabile in `src/app/components/brand-lockup/brand-lockup.component.ts`
+- token visuali globali in `src/styles.scss`
 
-For end-to-end (e2e) testing, run:
+## Note operative
 
-```bash
-ng e2e
-```
+- Il frontend presume la disponibilita' del backend `timeoffly-app`
+- Le route applicative principali sono lazy loaded per migliorare il bootstrap iniziale
+- La shell principale e' stata separata in chunk dedicato per ridurre il peso del bundle iniziale
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## Stato del progetto
 
-## Additional Resources
+TimeOffly Frontend e' pronto come base solida per:
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- sviluppo prodotto continuo
+- integrazione con backend enterprise
+- estensione di dashboard e workflow approvativi
+- deploy SSR in ambienti staging e produzione
+
