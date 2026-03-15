@@ -6,21 +6,21 @@
       <p class="page-hero-subtitle">
         <ng-container *ngIf="welcomeName; else genericWelcome">Benvenuto {{ welcomeName }}.</ng-container>
         <ng-template #genericWelcome>Benvenuto.</ng-template>
-        Qui trovi ferie residue, trend annuale e suggerimenti smart in un solo colpo d'occhio.
+        Qui trovi ferie pianificate, permessi disponibili e suggerimenti smart in un solo colpo d'occhio.
       </p>
 
       <div class="page-hero-metrics">
         <div class="page-hero-metric">
-          <strong>{{ dashboard.statistiche.percentualeUsate }}%</strong>
-          <span>utilizzo annuale</span>
+          <strong>{{ dashboard.upcomingFerie?.length || 0 }}</strong>
+          <span>ferie in arrivo</span>
         </div>
         <div class="page-hero-metric">
-          <strong>{{ dashboard.giorniEffettiviLavorati }}</strong>
-          <span>giorni lavorati</span>
+          <strong>{{ dashboard.suggestions?.length || 0 }}</strong>
+          <span>suggerimenti smart</span>
         </div>
         <div class="page-hero-metric">
-          <strong>{{ breakdown.length }}</strong>
-          <span>tipologie monitorate</span>
+          <strong>{{ dashboard.residuoFerie?.totaliPermessi || 0 }}</strong>
+          <span>permessi disponibili</span>
         </div>
       </div>
     </div>
@@ -150,8 +150,8 @@
     </mat-card>
   </div>
 
-  <mat-card class="breakdown-card" *ngIf="breakdown.length">
-    <div class="card-header">Breakdown per tipologia</div>
+<mat-card class="breakdown-card" *ngIf="breakdown.length">
+    <div class="card-header">Richieste per tipologia</div>
     <div class="card-body">
       <div class="breakdown">
         <div *ngFor="let item of breakdown">
