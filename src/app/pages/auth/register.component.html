@@ -13,41 +13,49 @@
         <mat-form-field appearance="outline">
           <mat-label>Nome</mat-label>
           <input matInput formControlName="nome" autocomplete="given-name">
+          <mat-error *ngIf="shouldShowError('nome')">{{ getErrorMessage('nome') }}</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Cognome</mat-label>
           <input matInput formControlName="cognome" autocomplete="family-name">
+          <mat-error *ngIf="shouldShowError('cognome')">{{ getErrorMessage('cognome') }}</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Username</mat-label>
           <input matInput formControlName="username" autocomplete="username">
+          <mat-error *ngIf="shouldShowError('username')">{{ getErrorMessage('username') }}</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Email</mat-label>
           <input matInput formControlName="email" autocomplete="email">
+          <mat-error *ngIf="shouldShowError('email')">{{ getErrorMessage('email') }}</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Contratto</mat-label>
           <input matInput formControlName="contratto" placeholder="Es. Metalmeccanico">
+          <mat-error *ngIf="shouldShowError('contratto')">{{ getErrorMessage('contratto') }}</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Ferie annue</mat-label>
           <input matInput type="number" min="0" step="1" inputmode="numeric" formControlName="giorniTotali" placeholder="Es. 26">
+          <mat-error *ngIf="shouldShowError('giorniTotali')">{{ getErrorMessage('giorniTotali') }}</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Ore permessi annue</mat-label>
           <input matInput type="number" min="0" step="1" inputmode="numeric" formControlName="oreTotali" placeholder="Es. 32">
+          <mat-error *ngIf="shouldShowError('oreTotali')">{{ getErrorMessage('oreTotali') }}</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Password</mat-label>
           <input matInput type="password" formControlName="password" autocomplete="new-password">
+          <mat-error *ngIf="shouldShowError('password')">{{ getErrorMessage('password') }}</mat-error>
         </mat-form-field>
 
         <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid || loading">

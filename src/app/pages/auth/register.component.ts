@@ -50,7 +50,11 @@ export class RegisterComponent {
   }
 
   submit() {
-    if (this.form.invalid || this.loading) return;
+    if (this.loading) return;
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
     this.loading = true;
     const { nome, cognome, username, email, contratto, giorniTotali, oreTotali, password } = this.form.getRawValue();
     this.authService
@@ -76,5 +80,31 @@ export class RegisterComponent {
           this.loading = false;
         }
       });
+  }
+
+  shouldShowError(controlName: string): boolean {
+    const control = this.form.get(controlName);
+    return !!control && control.invalid && (control.touched || control.dirty);
+  }
+
+  getErrorMessage(controlName: string): string {
+    const control = this.form.get(controlName);
+    if (!control?.errors) {
+      return '';
+    }
+
+    if (control.hasError('required')) {
+      return 'Campo obbligatorio';
+    }
+
+    if (control.hasError('email')) {
+      return 'Controlla i dati inseriti';
+    }
+
+    if (control.hasError('min')) {
+      return 'Inserisci un valore uguale o superiore a 0';
+    }
+
+    return 'Controlla i dati inseriti';
   }
 }
